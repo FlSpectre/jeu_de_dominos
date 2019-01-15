@@ -1,0 +1,27 @@
+gestion du tour par tour
+deplacement du dominos
+choix du placement sur la map
+passement de tour
+gestion des collisions
+position des dominos correct
+gestion de l'aléatoire dans le distrib du jeu
+affichage des mains
+temps par tour ?
+fin du jeu
+bon nombres des dominos
+pioche des dominos
+gerer les doublons etc
+plus grosse paire qui commence si pas de double
+si aucun tour possible , pioche
+jeu bloquer , gagnant qui a le moins de points qui gagne
+roation du domino possible
+
+
+
+deplacement du dominos
+choix du placement sur la map
+passement de tour
+fin du jeu
+rotation dominos
+pioche des dominos
+valider la pos du dominos 
