@@ -12,12 +12,15 @@
         <div id="start_div">
             <div id="title">DOMINOS</div>
             <button id="2" class="player" onclick="launch_game(this);">2 joueurs</button>
-            <button id="3" class="player"onclick="launch_game(this);">3 joueurs</button>
-            <button id="4" class="player"onclick="launch_game(this);">4 joueurs</button>
+            <button id="3" class="player" onclick="launch_game(this);">3 joueurs</button>
+            <button id="4" class="player" onclick="launch_game(this);">4 joueurs</button>
         </div>
     </div>
     <div id="game">
-
+        <img src="background_game.jpg" style="width: 800px;">
+        <div class="player_game"></div>
+        <div id="p1" class="player_turn" onclick="gameplay()">Player 1 Turn ! Click to Play</div>
+        <button id="end_turn" onclick="end_turn()">Fin du Tour</button>
     </div>
     <script src="script.js"></script>
 </body>
