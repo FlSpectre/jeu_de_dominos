@@ -3,6 +3,7 @@ function launch_game(test) {
     document.getElementById("menu").style.display ="none";
     document.getElementById("game").style.display ="flex";
     var y = document.getElementsByClassName("player")[0].id;
+    get_player_hand();
     count_turn(x);
 }
 var x = document.getElementsByClassName("player")[0].id;
@@ -63,17 +64,18 @@ function get_player_hand() {
     } 
     console.log(hand1);
     console.log(array);
-    aff_hand(hand1);
+    aff_hand(hand1, array);
 }
 
-function aff_hand(hand1) {
+function aff_hand(hand1, array) {
     var i = hand1.length;
-    var test;
+    var j = array.length;
+    
     while (i !== 0) {
-        test = document.getElementsByClassName("Dominos")[hand1[0]];
-    console.log(test);
+        test = ['d'] + hand1[i];
+        console.log(test);
 
-        document.getElementById("d1").style.display = "none";
+        document.getElementById(test).style.display = "none";
         i--;
     }
 }

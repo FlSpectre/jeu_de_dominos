@@ -73,115 +73,154 @@ button.player {
 }
 
 #d0 {
-    background: url(img_dominos/0.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/0.png) ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d1 {
-    background: url(img_dominos/1.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/1.png) ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d2 {
-    background: url(img_dominos/2.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/2.png) ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d3 {
-    background: url(img_dominos/3.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/3.png);
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d4 {
-    background: url(img_dominos/4.png) no-repeat center fixed;
-    display: none;
-    display: none;
+    background: url(img_dominos/4.png);
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d5 {
-    background: url(img_dominos/5.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/5.png)  ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d6 {
-    background: url(img_dominos/6.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/6.png)  ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d7 {
-    background: url(img_dominos/7.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/7.png)  ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d8 {
-    background: url(img_dominos/8.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/8.png)   ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d9 {
-    background: url(img_dominos/9.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/9.png);
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d10 {
-    background: url(img_dominos/10.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/10.png);
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d11 {
-    background: url(img_dominos/11.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/11.png) ;
+    position: relative;
+    height: 200px;
+    width: 100px;
 }
 #d12 {
-    background: url(img_dominos/12.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/12.png);
+    height: 200px;
+    width: 100px;
 }
 #d13 {
-    background: url(img_dominos/13.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/13.png);
+    height: 200px;
+    width: 100px;
 }
 #d14 {
-    background: url(img_dominos/14.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/14.png);
+    height: 200px;
+    width: 100px;
 }
 #d15 {
-    background: url(img_dominos/15.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/15.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d16 {
-    background: url(img_dominos/16.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/16.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d17 {
-    background: url(img_dominos/17.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/17.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d18 {
-    background: url(img_dominos/18.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/18.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d19 {
-    background: url(img_dominos/19.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/19.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d20 {
-    background: url(img_dominos/20.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/20.png);
+    height: 200px;
+    width: 100px;
 }
 #d21 {
-    background: url(img_dominos/21.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/21.png);
+    height: 200px;
+    width: 100px;
 }
 #d22 {
-    background: url(img_dominos/22.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/22.png);
+    height: 200px;
+    width: 100px;
 }
 #d23 {
-    background: url(img_dominos/23.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/23.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d24 {
-    background: url(img_dominos/24.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/24.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d25 {
-    background: url(img_dominos/25.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/25.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d26 {
-    background: url(img_dominos/26.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/26.png) ;
+    height: 200px;
+    width: 100px;
 }
 #d27 {
-    background: url(img_dominos/27.png) no-repeat center fixed;
-    display: none;
+    background: url(img_dominos/27.png) ;
+    height: 200px;
+    width: 100px;
 }
