@@ -45,7 +45,6 @@ button.player {
 #game {
     height: 100vh;
     display: none;
-    justify-content: center;
     align-items: center;
 }
 
@@ -57,6 +56,7 @@ button.player {
     justify-content: center;
     align-items: center;
     font-size: 50px;
+    margin-left: 515px;
     color: aliceblue;
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -65,162 +65,230 @@ button.player {
     position: absolute;
     width: 25vh;
     height: 80px;
-    font-size: 30px;
+    font-size:30px;
     right: 50px;
     top: 50px;
     background-color: rgb(58, 44, 27);
     border: none;
 }
 
+#plateau {
+    margin-left: 100px;
+    width: 990px;
+}
+
+#test {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
 #d0 {
+    display: none;
     background: url(img_dominos/0.png) ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d1 {
+    display: none;
     background: url(img_dominos/1.png) ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d2 {
+    display: none;
     background: url(img_dominos/2.png) ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
+
 }
 #d3 {
+    display: none;
     background: url(img_dominos/3.png);
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d4 {
+    display: none;
     background: url(img_dominos/4.png);
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d5 {
+    display: none;
     background: url(img_dominos/5.png)  ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d6 {
+    display: none;
     background: url(img_dominos/6.png)  ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d7 {
+    display: none;
     background: url(img_dominos/7.png)  ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d8 {
+    display: none;
     background: url(img_dominos/8.png)   ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d9 {
+    display: none;
     background: url(img_dominos/9.png);
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d10 {
+    display: none;
     background: url(img_dominos/10.png);
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d11 {
+    display: none;
     background: url(img_dominos/11.png) ;
     position: relative;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d12 {
+    display: none;
     background: url(img_dominos/12.png);
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d13 {
+    display: none;
     background: url(img_dominos/13.png);
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d14 {
+    display: none;
     background: url(img_dominos/14.png);
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d15 {
+    display: none;
     background: url(img_dominos/15.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d16 {
+    display: none;
     background: url(img_dominos/16.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d17 {
+    display: none;
     background: url(img_dominos/17.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d18 {
+    display: none;
     background: url(img_dominos/18.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d19 {
+    display: none;
     background: url(img_dominos/19.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d20 {
+    display: none;
     background: url(img_dominos/20.png);
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d21 {
+    display: none;
     background: url(img_dominos/21.png);
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d22 {
+    display: none;
     background: url(img_dominos/22.png);
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d23 {
+    display: none;
     background: url(img_dominos/23.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d24 {
+    display: none;
     background: url(img_dominos/24.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d25 {
+    display: none;
     background: url(img_dominos/25.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d26 {
+    display: none;
     background: url(img_dominos/26.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }
 #d27 {
+    display: none;
     background: url(img_dominos/27.png) ;
-    height: 200px;
+    height: 56px;
     width: 100px;
+    margin: 30px 0px 0px 100px;
 }

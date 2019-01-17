@@ -3,10 +3,11 @@ function launch_game(test) {
     document.getElementById("menu").style.display ="none";
     document.getElementById("game").style.display ="flex";
     var y = document.getElementsByClassName("player")[0].id;
-    get_player_hand();
-    count_turn(x);
+    
 }
-var x = document.getElementsByClassName("player")[0].id;
+//var x = document.getElementsByClassName("player")[0].id;
+
+var dominos = get_player_hand();
 var turn = 1;
 
 function count_turn(x) {
@@ -21,7 +22,8 @@ function count_turn(x) {
 }
 
 function new_turn(turn) {
-    console.log(turn);
+    //aff_hand();
+    send_hand();
     document.getElementById("p1").innerHTML = "Player " + turn + " Turn ! Click to Play";
 }
 
@@ -50,9 +52,7 @@ function create_dominos() {
 
 function get_player_hand() {
     var array = create_dominos();
-    new_array = randomize(array);
-
-    var new_array;
+    var new_array = randomize(array);
     var hand1 = [];
     var hand2 = [];
     var i = 0;
@@ -61,27 +61,58 @@ function get_player_hand() {
         hand1[i] = array[i];
         array.splice(i, 1);
         i++;
-    } 
+    }
+    i = 0;
+    while (i != 7) {
+        hand2[i] = array[i];
+        array.splice(i, 1);
+        i++;
+    }
     console.log(hand1);
+    console.log(hand2);
     console.log(array);
-    aff_hand(hand1, array);
+    return [hand1, hand2, array];
 }
 
-function aff_hand(hand1, array) {
-    var i = hand1.length;
-    var j = array.length;
-    
-    while (i !== 0) {
-        test = ['d'] + hand1[i];
-        console.log(test);
+function send_hand() {
+    aff_hand(dominos[1], dominos[0], dominos[2]);
+}
 
-        document.getElementById(test).style.display = "none";
-        i--;
+function aff_hand(hand1, hand2, array) {
+    var i;
+    var j;
+    var d1;
+    var d2;
+    
+    if (turn == 1) {
+        for (i = hand1.length - 1; i !== 0; i--) {
+            d1 = ['d'] + hand1[i];
+            document.getElementById(d1).style.display = "block";
+        }
+        for (j = hand2.length - 1; j !== 0; j--) {
+            d2 = ['d'] + hand2[j];
+            document.getElementById(d2).style.display = "none";
+        }
+    }
+    else {
+        for (j = hand2.length - 1; j !== 0; j--) {
+            d2 = ['d'] + hand2[j];
+            document.getElementById(d2).style.display = "block";
+        }
+        for (i = hand1.length - 1; i !== 0; i--) {
+            d1 = ['d'] + hand1[i];
+            document.getElementById(d1).style.display = "none";
+        }
     }
 }
 
+
+
+
 function randomize(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length; //, temporaryValue, randomIndex;
+    var temporaryValue;
+    var randomIndex;
 
     while (0 !== currentIndex) {
       randomIndex = Math.floor(Math.random() * currentIndex);
