@@ -1,14 +1,12 @@
-
+var dominos = get_player_hand();
+var turn = 0;
 function launch_game(test) {
     document.getElementById("menu").style.display ="none";
     document.getElementById("game").style.display ="flex";
     var y = document.getElementsByClassName("player")[0].id;
-    
+    send_hand();
 }
 //var x = document.getElementsByClassName("player")[0].id;
-
-var dominos = get_player_hand();
-var turn = 1;
 
 function count_turn(x) {
     if (turn == 0) {
@@ -85,29 +83,26 @@ function aff_hand(hand1, hand2, array) {
     var d2;
     
     if (turn == 1) {
-        for (i = hand1.length - 1; i !== 0; i--) {
+        for (i = hand1.length - 1; i !== -1; i--) {
             d1 = ['d'] + hand1[i];
             document.getElementById(d1).style.display = "block";
         }
-        for (j = hand2.length - 1; j !== 0; j--) {
+        for (j = hand2.length - 1; j !== -1; j--) {
             d2 = ['d'] + hand2[j];
             document.getElementById(d2).style.display = "none";
         }
     }
     else {
-        for (j = hand2.length - 1; j !== 0; j--) {
+        for (j = hand2.length - 1; j !== -1; j--) {
             d2 = ['d'] + hand2[j];
             document.getElementById(d2).style.display = "block";
         }
-        for (i = hand1.length - 1; i !== 0; i--) {
+        for (i = hand1.length - 1; i !== -1; i--) {
             d1 = ['d'] + hand1[i];
             document.getElementById(d1).style.display = "none";
         }
     }
 }
-
-
-
 
 function randomize(array) {
     var currentIndex = array.length; //, temporaryValue, randomIndex;
@@ -124,6 +119,24 @@ function randomize(array) {
     return array;
 }
 
-function create_map() {
-    
+
+var nbr = 0;
+
+
+var test = (function count() {
+    nbr++;
+})();
+
+function select(nb) {
+    console.log(test);
+    if (nbr == 0) {
+        test = nb;
+        document.getElementById(nb).style.left = "0px";
+    }
+    else {
+        document.getElementById(nb).style.left = "-20px";
+        nbr = 0;
+    }
+
+    return stop;
 }
