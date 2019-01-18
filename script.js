@@ -4,6 +4,8 @@ function launch_game(test) {
     document.getElementById("menu").style.display ="none";
     document.getElementById("game").style.display ="flex";
     var y = document.getElementsByClassName("player")[0].id;
+    set_dominos();
+    asign_dominos();
     send_hand();
 }
 //var x = document.getElementsByClassName("player")[0].id;
@@ -53,22 +55,15 @@ function get_player_hand() {
     var new_array = randomize(array);
     var hand1 = [];
     var hand2 = [];
-    var i = 0;
+    for (var i = 0; i != 7; i++) {
 
-    while (i != 7) {
         hand1[i] = array[i];
         array.splice(i, 1);
-        i++;
     }
-    i = 0;
-    while (i != 7) {
+    for (var i = 0; i != 7; i++) {
         hand2[i] = array[i];
         array.splice(i, 1);
-        i++;
     }
-    console.log(hand1);
-    console.log(hand2);
-    console.log(array);
     return [hand1, hand2, array];
 }
 
@@ -81,7 +76,6 @@ function aff_hand(hand1, hand2, array) {
     var j;
     var d1;
     var d2;
-    
     if (turn == 1) {
         for (i = hand1.length - 1; i !== -1; i--) {
             d1 = ['d'] + hand1[i];
@@ -100,14 +94,12 @@ function aff_hand(hand1, hand2, array) {
         for (i = hand1.length - 1; i !== -1; i--) {
             d1 = ['d'] + hand1[i];
             document.getElementById(d1).style.display = "none";
-        }
     }
+}
 }
 
 function randomize(array) {
-    var currentIndex = array.length; //, temporaryValue, randomIndex;
-    var temporaryValue;
-    var randomIndex;
+    var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (0 !== currentIndex) {
       randomIndex = Math.floor(Math.random() * currentIndex);
@@ -121,7 +113,6 @@ function randomize(array) {
 
 
 var nbr = 0;
-
 
 var test = (function count() {
     nbr++;
@@ -137,6 +128,66 @@ function select(nb) {
         document.getElementById(nb).style.left = "-20px";
         nbr = 0;
     }
-
     return stop;
+}
+
+function set_dominos() {
+    this.id ="0";
+    this.side1 ="0";
+    this.side2 = "0";
+    this.pos_x ="0";
+    this.pos_y ="0";
+    this.deg="0";
+    this.valid="0";
+    this.select="0";
+    this.pose="0";
+    this.aff="none";
+}
+var domino = new Array(27);
+
+function asign_dominos() {
+    var test;
+
+    for (var i = 0; i != 28; i++) {
+        domino[i] = new set_dominos();
+    }
+    for (var i = 0; i != 28; i++) {
+        domino[i].id = "d" + i;
+        test = domino[i].id;
+        document.getElementById(test).style.display = "none";
+    }
+    asign_side1();
+    asign_side2();
+}
+
+function asign_side2() {
+    var x = 0;
+    var y = 0;
+    var check = 0;
+    for (var i = 0; i != 28; i++) {
+        domino[i].side2 = y;
+        if (check == x + 1 || i == 0) {
+            check = 0;
+            x += 1;
+            y++; 
+        }
+        check++;         
+    }
+}
+
+function asign_side1() {
+    var x = 0;
+    var y = 0;
+    var test = 0;
+
+    for (var i = 0; i != 28; i++) {
+        domino[i].side1 = y;
+        if (y == test) {
+            test++;
+            y = 0;
+            domino[i].side1 = y;
+        }
+        y++;
+    }
+    console.log(domino);
 }
