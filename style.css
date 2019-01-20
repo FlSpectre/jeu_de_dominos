@@ -43,7 +43,7 @@ button.player {
 /* ************************************************************ */
 
 #game {
-    height: 100vh;
+    height: 100%;
     display: none;
     align-items: center;
     justify-content: center;
@@ -90,8 +90,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d1 {
     display: none;
@@ -99,8 +97,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d2 {
     display: none;
@@ -108,8 +104,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 
 }
 #d3 {
@@ -118,8 +112,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d4 {
     display: none;
@@ -127,8 +119,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d5 {
     display: none;
@@ -136,8 +126,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d6 {
     display: none;
@@ -145,8 +133,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d7 {
     display: none;
@@ -154,8 +140,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d8 {
     display: none;
@@ -163,8 +147,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d9 {
     display: none;
@@ -172,8 +154,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d10 {
     display: none;
@@ -181,8 +161,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d11 {
     display: none;
@@ -190,8 +168,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d12 {
     display: none;
@@ -199,8 +175,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d13 {
     display: none;
@@ -208,8 +182,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d14 {
     display: none;
@@ -217,8 +189,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d15 {
     display: none;
@@ -226,8 +196,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d16 {
     display: none;
@@ -235,8 +203,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d17 {
     display: none;
@@ -244,8 +210,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d18 {
     display: none;
@@ -253,8 +217,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d19 {
     display: none;
@@ -262,8 +224,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d20 {
     display: none;
@@ -271,8 +231,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d21 {
     display: none;
@@ -280,8 +238,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d22 {
     display: none;
@@ -289,8 +245,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d23 {
     display: none;
@@ -298,8 +252,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d24 {
     display: none;
@@ -307,8 +259,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d25 {
     display: none;
@@ -316,8 +266,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d26 {
     display: none;
@@ -325,8 +273,6 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
 #d27 {
     display: none;
@@ -334,6 +280,4 @@ button.player {
     position: absolute;
     height: 56px;
     width: 100px;
-    left: 50px;
-    margin-top: 20px;
 }
