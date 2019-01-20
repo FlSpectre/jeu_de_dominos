@@ -2,7 +2,8 @@ var dominos = get_player_hand();
 var turn = 0;
 function launch_game(test) {
     document.getElementById("menu").style.display ="none";
-    document.getElementById("game").style.display ="flex";
+    document.getElementById("game").style.display ="flex";    
+    document.getElementById("p1").style.display ="none"; // a remettre
     var y = document.getElementsByClassName("player")[0].id;
     set_dominos();
     asign_dominos();
@@ -24,7 +25,7 @@ function count_turn(x) {
 function new_turn(turn) {
     //aff_hand();
     send_hand();
-    document.getElementById("p1").innerHTML = "Player " + turn + " Turn ! Click to Play";
+    //document.getElementById("p1").innerHTML = "Player " + turn + " Turn ! Click to Play";
 }
 
 function gameplay() {
@@ -40,7 +41,7 @@ function end_turn() {
     else {
         new_turn(1);
     }
-    document.getElementById("p1").style.display ="flex";
+    document.getElementById("p1").style.display ="none";
 }
 
 function create_dominos() {
@@ -111,26 +112,6 @@ function randomize(array) {
     return array;
 }
 
-
-var nbr = 0;
-
-var test = (function count() {
-    nbr++;
-})();
-
-function select(nb) {
-    console.log(test);
-    if (nbr == 0) {
-        test = nb;
-        document.getElementById(nb).style.left = "0px";
-    }
-    else {
-        document.getElementById(nb).style.left = "-20px";
-        nbr = 0;
-    }
-    return stop;
-}
-
 function set_dominos() {
     this.id ="0";
     this.side1 ="0";
@@ -139,11 +120,11 @@ function set_dominos() {
     this.pos_y ="0";
     this.deg="0";
     this.valid="0";
-    this.select="0";
+    this.took="0";
     this.pose="0";
     this.aff="none";
 }
-var domino = new Array(27);
+var domino = new Array(28);
 
 function asign_dominos() {
     var test;
@@ -154,7 +135,7 @@ function asign_dominos() {
     for (var i = 0; i != 28; i++) {
         domino[i].id = "d" + i;
         test = domino[i].id;
-        document.getElementById(test).style.display = "none";
+        //document.getElementById(test).style.display = "none";
     }
     asign_side1();
     asign_side2();
@@ -191,3 +172,44 @@ function asign_side1() {
     }
     console.log(domino);
 }
+
+function get_select(recup) {  
+    for(var i = 0; i != 27; i++) {
+        if (domino[i].id == recup.id) {
+            for(var j = 0; j != 27; j++) {
+                domino[j].took = 0;
+                if (domino[j].pose == 0) {
+                document.getElementById(domino[j].id).style.left = "20px";
+                }
+            }
+            if (domino[i].pose == 0) {
+                document.getElementById(domino[i].id).style.left = "0px";
+            }
+            domino[i].took = 1;
+            return;
+        }
+    }
+}
+
+function printMousePos(event) {
+    var x;
+    var y;
+    var margin_top = -50;
+    var margin_left = -50;
+    for (var i = 0; i != 27; i++) {
+        if (domino[i].took == 1 && domino[i].pose == 0) {
+            x = event.clientX;
+            y = event.clientY;
+            domino[i].pos_x = x;
+            domino[i].pos_y = y;
+            document.getElementById(domino[i].id).style.left = x + margin_left + "px";
+            document.getElementById(domino[i].id).style.top = y + margin_top +"px";
+            document.getElementById(domino[i].id).style.position = "fixed";
+            domino[i].took = 0;
+            domino[i].pose = 1;       
+        }
+    }
+  }
+  var el = document.getElementById("plateau");
+
+  el.addEventListener("click", printMousePos);
