@@ -1,4 +1,7 @@
 var dominos = get_player_hand();
+var hand_1 = dominos[1];
+var hand_2 = dominos[0];
+var pioche = dominos[2];
 var turn = 0;
 function launch_game(test) {
     document.getElementById("menu").style.display ="none";
@@ -8,8 +11,8 @@ function launch_game(test) {
     set_dominos();
     asign_dominos();
     send_hand();
+    set_dominos_hand_pos();    
 }
-//var x = document.getElementsByClassName("player")[0].id;
 
 function count_turn(x) {
     if (turn == 0) {
@@ -23,7 +26,6 @@ function count_turn(x) {
 }
 
 function new_turn(turn) {
-    //aff_hand();
     send_hand();
     //document.getElementById("p1").innerHTML = "Player " + turn + " Turn ! Click to Play";
 }
@@ -57,12 +59,11 @@ function get_player_hand() {
     var hand1 = [];
     var hand2 = [];
     for (var i = 0; i != 7; i++) {
-
-        hand1[i] = array[i];
+        hand1[i] = 'd' + array[i];
         array.splice(i, 1);
     }
     for (var i = 0; i != 7; i++) {
-        hand2[i] = array[i];
+        hand2[i] = 'd' + array[i];
         array.splice(i, 1);
     }
     return [hand1, hand2, array];
@@ -72,31 +73,32 @@ function send_hand() {
     aff_hand(dominos[1], dominos[0], dominos[2]);
 }
 
-function aff_hand(hand1, hand2, array) {
-    var i;
-    var j;
-    var d1;
-    var d2;
+function aff_hand() {
     if (turn == 1) {
-        for (i = hand1.length - 1; i !== -1; i--) {
-            d1 = ['d'] + hand1[i];
-            document.getElementById(d1).style.display = "block";
-        }
-        for (j = hand2.length - 1; j !== -1; j--) {
-            d2 = ['d'] + hand2[j];
-            document.getElementById(d2).style.display = "none";
+        for (var i = 6; i != -1; i--) {
+            document.getElementById(hand_1[i]).style.display = "block";
+            document.getElementById(hand_2[i]).style.display = "none";
         }
     }
     else {
-        for (j = hand2.length - 1; j !== -1; j--) {
-            d2 = ['d'] + hand2[j];
-            document.getElementById(d2).style.display = "block";
-        }
-        for (i = hand1.length - 1; i !== -1; i--) {
-            d1 = ['d'] + hand1[i];
-            document.getElementById(d1).style.display = "none";
+        for (var i = 6; i != -1; i--) {
+        document.getElementById(hand_1[i]).style.display = "none";
+        document.getElementById(hand_2[i]).style.display = "block";    
+       }
     }
 }
+
+function set_dominos_hand_pos() {
+    var space = 100;
+
+    for (var i = 0; i != 7; i++) {
+        document.getElementById(hand_1[i]).style.left = "50px";
+        document.getElementById(hand_2[i]).style.left = "50px";
+        document.getElementById(hand_1[i]).style.top = space + "px";
+        document.getElementById(hand_2[i]).style.top = space + "px";
+        space = space + 100;
+    }
+    console.log("test");
 }
 
 function randomize(array) {
@@ -213,3 +215,11 @@ function printMousePos(event) {
   var el = document.getElementById("plateau");
 
   el.addEventListener("click", printMousePos);
+
+  // x50 y56  29 * 16
+
+  function array_pos() {
+      var valid_domino;
+
+
+  }
