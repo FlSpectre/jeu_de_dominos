@@ -238,7 +238,7 @@ function printMousePos(event) {
     if (domino_pose == 0) {
         document.getElementById(domino[tempo].id).style.left = domino[tempo].pos_x  + "px";
         document.getElementById(domino[tempo].id).style.top = domino[tempo].pos_y  +"px";
-        document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+        //document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
             document.getElementById(domino[tempo].id).style.position = "fixed";
             console.log("pos_x :" , domino[tempo].pos_x);
     console.log("pos_y :" , domino[tempo].pos_y);
@@ -274,7 +274,7 @@ function printMousePos(event) {
                 domino[tempo].pos_x = domino[stock].pos_x;
                 document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 22 +  "px";
                 document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';
                 document.getElementById(domino[stock].id).style.position = "fixed"; 
             }
         else if (e.clientX > domino[stock].pos_x + 50 && // TOP RIGHT
@@ -296,6 +296,7 @@ function printMousePos(event) {
                 domino[tempo].pos_x = domino[stock].pos_x + 100;
                 document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 100 + "px";
                 document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + "px";
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+180+'deg)';
                 document.getElementById(domino[stock].id).style.position = "fixed"; 
         }
         else if (e.clientX >= domino[stock].pos_x + 50 && // BOT RIGHT
@@ -306,7 +307,7 @@ function printMousePos(event) {
                 domino[tempo].pos_x = domino[stock].pos_x;
                 document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 + "px";
                 document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';
                 document.getElementById(domino[stock].id).style.position = "fixed"; 
         }
         else {
