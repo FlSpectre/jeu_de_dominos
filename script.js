@@ -230,76 +230,88 @@ function printMousePos(event) {
   // x50 y56 size squares 29 * 16  size map || 100 * 56 domino
 
   function check_arround(e) {
-
     console.log(stock);    
     console.log(tempo);
-    console.log(e.clientX);
-    console.log(e.clientY);
-    console.log(domino[tempo].pos_x + 50);
-    console.log(domino[tempo].pos_y + 50);
+    console.log("pos x souris :",e.clientX - 1);
+    console.log("pos y souris :",e.clientY + 1);
+    console.log("pos_x + 50 :" , domino[stock].pos_x + 50);
+    console.log("pos_y + 50 :" , domino[stock].pos_y + 50);
+    console.log("pos_x :" , domino[stock].pos_x);
+    console.log("pos_y :" , domino[stock].pos_y);
     if (domino_pose == 0) {
         document.getElementById(domino[tempo].id).style.left = domino[tempo].pos_x  + "px";
         document.getElementById(domino[tempo].id).style.top = domino[tempo].pos_y  +"px";
         document.getElementById(domino[tempo].id).style.position = "fixed";
-        console.log("JE SUIS ICI");
-
     }
-      //check top left
-    else if (e.clientX < domino[tempo].pos_x &&
-        e.clientY > domino[tempo].pos_y &&
-        e.clientX < domino[tempo].pos_x + 50 &&
-        e.clientY < domino[tempo].pos_y + 50) {
-          document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + "px";
-          document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + "px";
-          //document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
-          document.getElementById(domino[stock].id).style.position = "fixed";
-
-           console.log("left" + document.getElementById(domino[tempo].id).style.left);
-           
+    else if (e.clientX - 1 < domino[stock].pos_x &&
+            e.clientY + 1> domino[stock].pos_y &&
+            e.clientX + 1> domino[stock].pos_x - 100 &&
+            e.clientY - 1< domino[stock].pos_y + 50) {
+                domino[tempo].pos_y = domino[stock].pos_y;
+                domino[tempo].pos_x = domino[stock].pos_x - 100;
+                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x -100 +  "px";
+                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y  + "px";
+                document.getElementById(domino[stock].id).style.position = "fixed"; 
+    }
+        else if (e.clientX > domino[stock].pos_x &&
+            e.clientY < domino[stock].pos_y &&
+            e.clientX < domino[stock].pos_x + 50 &&
+            e.clientY > domino[stock].pos_y - 50) {
+                domino[tempo].pos_y = domino[stock].pos_y;
+                domino[tempo].pos_x = domino[stock].pos_x - 100;
+                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 22 +  "px";
+                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y - 75 + "px";
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+                document.getElementById(domino[stock].id).style.position = "fixed"; 
         }
-        //check left 
-        else if (e.clientX < domino[tempo].pos_x &&
-            e.clientY > domino[tempo].pos_y &&
-            e.clientX > domino[tempo].pos_x - 50 &&
-            e.clientY < domino[tempo].pos_y + 50) {
-                console.log("b");
+        else if (e.clientX >= domino[stock].pos_x &&
+            e.clientY >= domino[stock].pos_y + 56 &&
+            e.clientX <= domino[stock].pos_x + 50 &&
+            e.clientY <= domino[stock].pos_y + 106) {
+                domino[tempo].pos_y = domino[stock].pos_y + 100;
+                domino[tempo].pos_x = domino[stock].pos_x;
+                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 22 +  "px";
+                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+                document.getElementById(domino[stock].id).style.position = "fixed"; 
+            }
+        else if (e.clientX > domino[stock].pos_x + 50 &&
+            e.clientY <= domino[stock].pos_y &&
+            e.clientX <= domino[stock].pos_x + 100 &&
+            e.clientY >= domino[stock].pos_y - 50) {
+                domino[tempo].pos_y = domino[stock].pos_y - 100;
+                domino[tempo].pos_x = domino[stock].pos_x;
+                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 +  "px";
+                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y - 75 + "px";
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+                document.getElementById(domino[stock].id).style.position = "fixed"; 
+            }
+        else if (e.clientX >= domino[stock].pos_x + 100 &&
+            e.clientY >= domino[stock].pos_y &&
+            e.clientX <= domino[stock].pos_x + 150 &&
+            e.clientY <= domino[stock].pos_y + 50) {
+                domino[tempo].pos_y = domino[stock].pos_y;
+                domino[tempo].pos_x = domino[stock].pos_x + 100;
+                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 100 + "px";
+                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + "px";
+                document.getElementById(domino[stock].id).style.position = "fixed"; 
         }
-        //bot left
-        else if (e.clientX >= domino[tempo].pos_x &&
-            e.clientY >= domino[tempo].pos_y + 56 &&
-            e.clientX <= domino[tempo].pos_x + 50 &&
-            e.clientY <= domino[tempo].pos_y + 106) {
-                console.log("c");
-        }
-        //top right
-        else if (e.clientX >= domino[tempo].pos_x + 50 &&
-            e.clientY <= domino[tempo].pos_y &&
-            e.clientX <= domino[tempo].pos_x + 100 &&
-            e.clientY >= domino[tempo].pos_y - 50) {
-                console.log("e");
-        }
-        //right        
-        else if (e.clientX >= domino[tempo].pos_x + 100 &&
-            e.clientY >= domino[tempo].pos_y &&
-            e.clientX <= domino[tempo].pos_x + 150 &&
-            e.clientY <= domino[tempo].pos_y + 50) {
-                console.log("d");
-        }
-        //bot right
-        else if (e.clientX >= domino[tempo].pos_x + 50 &&
-            e.clientY >= domino[tempo].pos_y + 56 &&
-            e.clientX <= domino[tempo].pos_x + 100 &&
-            e.clientY <= domino[tempo].pos_y + 106) {
-                console.log("f");
+        else if (e.clientX >= domino[stock].pos_x + 50 &&
+            e.clientY >= domino[stock].pos_y + 56 &&
+            e.clientX <= domino[stock].pos_x + 100 &&
+            e.clientY <= domino[stock].pos_y + 106) {
+                domino[tempo].pos_y = domino[stock].pos_y + 100;
+                domino[tempo].pos_x = domino[stock].pos_x;
+                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 + "px";
+                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+                document.getElementById(domino[stock].id).style.position = "fixed"; 
         }
         else {
             console.log("NON");
-            console.log("e.client X = " +e.clientX ) ; 
-        console.log("e.client Y = " +e.clientY ) ; 
-        console.log(domino[tempo].pos_x );
-        console.log( domino[tempo].pos_y );
             return (-1);
         }
-        stock = tempo;
-        
+        stock = tempo;   
     }
+
+    
