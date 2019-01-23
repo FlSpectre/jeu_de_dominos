@@ -208,113 +208,219 @@ function printMousePos(event) {
         if (domino[i].took == 1 && domino[i].pose == 0) {
             domino[i].pos_x = event.clientX;
             domino[i].pos_y = event.clientY;
-            domino[i].get_last_place = domino[i].id;
             tempo = i;
-            if (check_arround(event) == -1) {
-                return (0);
+            if (call_call(event) == -1) {
+                domino[i].took = 1;
+                domino[i].pose = 0; 
+                break;
             }
-            domino_pose++;
+            domino[i].get_last_place = domino[i].id;
             domino[i].took = 0;
-            domino[i].pose = 1;       
-        }
+            domino[i].pose = 1; 
+            domino_pose++;
+            }
     }
   }
   var el = document.getElementById("plateau");
 
   el.addEventListener("click", printMousePos);
-  //el.addEventListener("click", check_arround);
+  document.addEventListener("click", get_click);
 
-  // x50 y56 size squares 29 * 16  size map || 100 * 56 domino
+  function get_click(e) {
+    console.log("click x : ", e.clientX);
+    console.log("click y : ", e.clientY);    
+  }
 
-  function check_arround(e) {
-    console.log(stock);    
-    console.log(tempo);
-    console.log("pos x souris :",e.clientX - 1);
-    console.log("pos y souris :",e.clientY + 1);
-    console.log("pos_x + 50 :" , domino[stock].pos_x + 50);
-    console.log("pos_y + 50 :" , domino[stock].pos_y + 50);
-    console.log("pos_x :" , domino[tempo].pos_x);
-    console.log("pos_y :" , domino[tempo].pos_y);
+  // 100 * 56 domino
+
+function call_call(e) {
+    if (domino[stock].deg == 0) {
+       if (call_check_nr(e) == -1) {
+            return -1;
+        }
+    }
+    else if (call_check_r(e) == -1) {
+        return -1;
+    }
+}
+
+function call_check_r(e) {
+    console.log("allo");
+    if (check_top(e) != 0);
+    else if(check_bot(e) != 0);
+    else if (check_ltop(e) != 0);
+
+    /*
+    
+    else if (check_rtop(e) != 0);
+    else if (check_lbop(e) != 0);
+    else if (check_rbop(e) != 0);*/
+    else {
+        return -1;
+    }
+} 
+function call_check_nr(e) {
+    if (first_pose(e) != 0);
+    else if (check_left(e) != 0);
+    else if (check_right(e) != 0);
+    else if (check_tleft(e) != 0);
+    else if (check_bleft(e) != 0);
+    else if (check_tright(e) != 0);
+    else if (check_bright(e) != 0);
+    else {
+    return (-1);
+    }
+    stock = tempo;
+}
+
+function first_pose(e) {
     if (domino_pose == 0) {
         document.getElementById(domino[tempo].id).style.left = domino[tempo].pos_x  + "px";
         document.getElementById(domino[tempo].id).style.top = domino[tempo].pos_y  +"px";
+        document.getElementById(domino[tempo].id).style.position = "fixed";
         //document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
-            document.getElementById(domino[tempo].id).style.position = "fixed";
-            console.log("pos_x :" , domino[tempo].pos_x);
-    console.log("pos_y :" , domino[tempo].pos_y);
+        console.log("pos_x :" , domino[tempo].pos_x);
+        console.log("pos_y :" , domino[tempo].pos_y);
+        //domino[tempo].deg = 90;
+        return (1);
     }
-    else if (e.clientX - 1 < domino[stock].pos_x &&  // LEFT
-            e.clientY + 1> domino[stock].pos_y &&
-            e.clientX + 1> domino[stock].pos_x - 100 &&
-            e.clientY - 1< domino[stock].pos_y + 50) {
-                console.log("ok");
-                domino[tempo].pos_y = domino[stock].pos_y;
-                domino[tempo].pos_x = domino[stock].pos_x - 100;
-                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x -100 +  "px";
-                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y  + "px";
-                document.getElementById(domino[stock].id).style.position = "fixed"; 
-    }
-        else if (e.clientX > domino[stock].pos_x && // TOP LEFT
-            e.clientY < domino[stock].pos_y &&
-            e.clientX < domino[stock].pos_x + 50 &&
-            e.clientY > domino[stock].pos_y - 50) {
-                domino[tempo].pos_y = domino[stock].pos_y;
-                domino[tempo].pos_x = domino[stock].pos_x - 100;
-                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 22 +  "px";
-                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y - 75 + "px";
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
-                //document.getElementById(domino[tempo].id).style.transform = 'transform-origin: center';
-                document.getElementById(domino[stock].id).style.position = "fixed"; 
-        }
-        else if (e.clientX >= domino[stock].pos_x && // BOT LEFT
-            e.clientY >= domino[stock].pos_y + 56 &&
-            e.clientX <= domino[stock].pos_x + 50 &&
-            e.clientY <= domino[stock].pos_y + 106) {
-                domino[tempo].pos_y = domino[stock].pos_y + 100;
-                domino[tempo].pos_x = domino[stock].pos_x;
-                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 22 +  "px";
-                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';
-                document.getElementById(domino[stock].id).style.position = "fixed"; 
-            }
-        else if (e.clientX > domino[stock].pos_x + 50 && // TOP RIGHT
-            e.clientY <= domino[stock].pos_y &&
-            e.clientX <= domino[stock].pos_x + 100 &&
-            e.clientY >= domino[stock].pos_y - 50) {
-                domino[tempo].pos_y = domino[stock].pos_y - 100;
-                domino[tempo].pos_x = domino[stock].pos_x;
-                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 +  "px";
-                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y - 75 + "px";
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
-                document.getElementById(domino[stock].id).style.position = "fixed"; 
-            }
-        else if (e.clientX >= domino[stock].pos_x + 100 && // RIGHT
-            e.clientY >= domino[stock].pos_y &&
-            e.clientX <= domino[stock].pos_x + 150 &&
-            e.clientY <= domino[stock].pos_y + 50) {
-                domino[tempo].pos_y = domino[stock].pos_y;
-                domino[tempo].pos_x = domino[stock].pos_x + 100;
-                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 100 + "px";
-                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + "px";
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+180+'deg)';
-                document.getElementById(domino[stock].id).style.position = "fixed"; 
-        }
-        else if (e.clientX >= domino[stock].pos_x + 50 && // BOT RIGHT
-            e.clientY >= domino[stock].pos_y + 56 &&
-            e.clientX <= domino[stock].pos_x + 100 &&
-            e.clientY <= domino[stock].pos_y + 106) {
-                domino[tempo].pos_y = domino[stock].pos_y + 100;
-                domino[tempo].pos_x = domino[stock].pos_x;
-                document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 + "px";
-                document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';
-                document.getElementById(domino[stock].id).style.position = "fixed"; 
-        }
-        else {
-            console.log("NON");
-            return (-1);
-        }
-        stock = tempo;   
-    }
+    return(0);
+}
 
-    
+
+function check_left(e) {
+    if (e.clientX - 1 < domino[stock].pos_x &&  // LEFT
+        e.clientY + 1> domino[stock].pos_y &&
+        e.clientX + 1> domino[stock].pos_x - 100 &&
+        e.clientY - 1< domino[stock].pos_y + 50) {
+        console.log("ok");
+        domino[tempo].pos_y = domino[stock].pos_y;
+        domino[tempo].pos_x = domino[stock].pos_x - 100;
+        document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x -100 +  "px";
+        document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y  + "px";
+        document.getElementById(domino[stock].id).style.position = "fixed"; 
+        return(1);
+    }
+    return (0);
+}
+
+function check_right(e) {
+    if (e.clientX >= domino[stock].pos_x + 100 && // RIGHT
+        e.clientY >= domino[stock].pos_y &&
+        e.clientX <= domino[stock].pos_x + 150 &&
+        e.clientY <= domino[stock].pos_y + 50) {
+            document.getElementById(domino[tempo].id).style.transform = 'rotate('+180+'deg)';
+            domino[tempo].pos_y = domino[stock].pos_y;
+            domino[tempo].pos_x = domino[stock].pos_x + 100;
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 100 + "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + "px";
+            document.getElementById(domino[stock].id).style.position = "fixed"; 
+            return(1);
+        }
+        return (0);
+}
+
+function check_tleft(e) {
+    if (e.clientX > domino[stock].pos_x && // TOP LEFT
+        e.clientY < domino[stock].pos_y &&
+        e.clientX < domino[stock].pos_x + 50 &&
+        e.clientY > domino[stock].pos_y - 50) {
+            document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+            domino[tempo].deg = 90;
+            domino[tempo].pos_y = domino[stock].pos_y - 100;
+            domino[tempo].pos_x = domino[stock].pos_x;
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 22 +  "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y - 75 + "px";
+            //document.getElementById(domino[tempo].id).style.transform = 'transform-origin: center';
+            document.getElementById(domino[stock].id).style.position = "fixed";
+            console.log("pos x", domino[stock].pos_x);
+            console.log("pos y", domino[stock].pos_y);
+            return(1);
+        }
+        return (0);
+}
+
+function check_tright(e) {
+    if (e.clientX > domino[stock].pos_x + 50 && // TOP RIGHT
+        e.clientY <= domino[stock].pos_y &&
+        e.clientX <= domino[stock].pos_x + 100 &&
+        e.clientY >= domino[stock].pos_y - 50) {
+            document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+            domino[tempo].deg = 90;
+            domino[tempo].pos_y = domino[stock].pos_y - 100;
+            domino[tempo].pos_x = domino[stock].pos_x + 50;
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 +  "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y - 75 + "px";
+            document.getElementById(domino[stock].id).style.position = "fixed"; 
+            return(1);
+        }
+        return (0);
+}
+
+function check_bleft(e) {
+    if (e.clientX >= domino[stock].pos_x && // BOT LEFT
+        e.clientY >= domino[stock].pos_y + 56 &&
+        e.clientX <= domino[stock].pos_x + 50 &&
+        e.clientY <= domino[stock].pos_y + 106) {
+            document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';
+            domino[tempo].deg = 90;
+            domino[tempo].pos_y = domino[stock].pos_y + 56;
+            domino[tempo].pos_x = domino[stock].pos_x;
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 22 +  "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
+            document.getElementById(domino[stock].id).style.position = "fixed"; 
+            return(1);
+        }
+        return (0);
+}
+
+function check_bright(e) {
+    if (e.clientX >= domino[stock].pos_x + 50 && // BOT RIGHT
+        e.clientY >= domino[stock].pos_y + 56 &&
+        e.clientX <= domino[stock].pos_x + 100 &&
+        e.clientY <= domino[stock].pos_y + 106) {
+            document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
+            domino[tempo].pos_y = domino[stock].pos_y + 56;
+            domino[tempo].pos_x = domino[stock].pos_x + 50;
+            domino[tempo].deg = 90;
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 + "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
+            document.getElementById(domino[tempo].id).style.position = "fixed"; 
+            console.log("pos_x domino placé",domino[tempo].pos_x);
+            console.log("pos_y domino placé",domino[tempo].pos_y);
+            return(1);
+        }
+        return (0);
+}
+
+function check_top(e) {
+    if (e.clientX > domino[stock].pos_x + 1 && // top 90
+        e.clientY < domino[stock].pos_y - 100&&
+        e.clientX < domino[stock].pos_x + 56 &&
+        e.clientY > domino[stock].pos_y - 150) {
+            console.log("OUI CA MARCHE");
+        }
+    return (0);
+}
+
+function check_bot(e) {
+    if (e.clientX > domino[stock].pos_x + 1 && // bot 90
+        e.clientY > domino[stock].pos_y + 100&&
+        e.clientX < domino[stock].pos_x + 56 &&
+        e.clientY < domino[stock].pos_y + 150) {
+            console.log("OUI CA MARCHE OUI");
+        }
+    return (0);
+}
+
+function check_ltop(e) {
+    console.log("pos_x", domino[stock].pos_x);
+    console.log("pos_y", domino[stock].pos_y);    
+    if (e.clientX < domino[stock].pos_x + 1 && // top 90
+        e.clientY > domino[stock].pos_y + 1&&
+        e.clientX < domino[stock].pos_x + 56 &&
+        e.clientY < domino[stock].pos_y) {
+            console.log("OUI CA MARCHE OUI OUI");
+        }
+    return (0);
+}
