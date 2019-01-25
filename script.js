@@ -268,8 +268,6 @@ function call_call(e) {
 }
 
 function call_check_r(e) {
-    console.log("allo");
-    
     if (check_top(e) != 0);
     else if(check_bot(e) != 0);
     else if (check_ltop(e) != 0);
@@ -369,17 +367,17 @@ function check_tleft(e) {
         e.clientX < domino[stock].pos_x + 50 &&
         e.clientY > domino[stock].pos_y - 50) {
             console.log("check");
-            if (domino[stock].side1 != domino[tempo].side1 && domino[stock].side1 != domino[tempo].side2) {
+            if (domino[stock].side2 != domino[tempo].side1 && domino[stock].side2 != domino[tempo].side2) {
                 return (0);
             }
-            if (domino[stock].side1 == domino[tempo].side2) {
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
-            }
-            if (domino[stock].side1 == domino[tempo].side1) {
+            if (domino[stock].side2 == domino[tempo].side2) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';
                 var test = domino[tempo].side1;
                 domino[tempo].side1 = domino[tempo].side2;
                 domino[tempo].side2 = test;
+            }
+            if (domino[stock].side2 == domino[tempo].side1) {
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';               
             }
             domino[tempo].deg = 90;
             domino[tempo].pos_y = domino[stock].pos_y - 100;
@@ -435,13 +433,14 @@ function check_bleft(e) {
             }
             if (domino[stock].side1 == domino[tempo].side2) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';
+                var test = domino[tempo].side1;
+                domino[tempo].side1 = domino[tempo].side2;
+                domino[tempo].side2 = test;
                 non = 1;
             }
             if (domino[stock].side1 == domino[tempo].side1 && non == 0) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
-                var test = domino[tempo].side1;
-                domino[tempo].side1 = domino[tempo].side2;
-                domino[tempo].side2 = test;
+                
             }
             domino[tempo].deg = 90;
             domino[tempo].pos_y = domino[stock].pos_y + 100;
@@ -520,19 +519,15 @@ function check_top(e) {
 }
 
 function check_bot(e) {
-    console.log(e.clientX , domino[stock].pos_x + 1 && // bot 90
-        e.clientY , domino[stock].pos_y + 1&&
-        e.clientX , domino[stock].pos_x + 56 &&
-        e.clientY , domino[stock].pos_y + 100);
+    console.log("x : ",e.clientX , domino[stock].pos_x + 1,
+        "y", e.clientY , domino[stock].pos_y + 1);
     if (e.clientX > domino[stock].pos_x + 1 && // bot 90
         e.clientY > domino[stock].pos_y + 1&&
         e.clientX < domino[stock].pos_x + 56 &&
         e.clientY < domino[stock].pos_y + 100) {
             var non = 0;
-            console.log(domino[stock].side1);
-            console.log(domino[stock].side2);
-            console.log(domino[tempo].side1);
-            console.log(domino[tempo].side2);
+            console.log("bad bot");
+           
             if (domino[stock].side2 != domino[tempo].side1 && domino[stock].side2 != domino[tempo].side2) {
                 return (0);
             }
@@ -547,6 +542,10 @@ function check_bot(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
                 
             }
+            console.log(domino[stock].side1);
+            console.log(domino[stock].side2);
+            console.log(domino[tempo].side1);
+            console.log(domino[tempo].side2);
             domino[tempo].deg = 90;
             domino[tempo].pos_y = domino[stock].pos_y + 100;
             domino[tempo].pos_x = domino[stock].pos_x;
@@ -565,6 +564,7 @@ function check_ltop(e) {
         e.clientX > domino[stock].pos_x - 50 &&
         e.clientY < domino[stock].pos_y + 50) {
             var non = 0;
+            console.log("bad ltop");
             if (domino[stock].side1 != domino[tempo].side1 && domino[stock].side1 != domino[tempo].side2) {
                 return (0);
             }
@@ -595,18 +595,20 @@ function check_rtop(e) {
         e.clientX < domino[stock].pos_x + 106 &&
         e.clientY < domino[stock].pos_y + 50) {
             var non = 0;
+            console.log("bad rtop");
             if (domino[stock].side1 != domino[tempo].side1 && domino[stock].side1 != domino[tempo].side2) {
                 return (0);
             }
             if (domino[stock].side1 == domino[tempo].side2) {
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
-                non = 1;
-            }
-            if (domino[stock].side1 == domino[tempo].side1 && non == 0) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+180+'deg)';
                 var test = domino[tempo].side1;
                 domino[tempo].side1 = domino[tempo].side2;
                 domino[tempo].side2 = test;
+                non = 1;
+            }
+            if (domino[stock].side1 == domino[tempo].side1 && non == 0) {
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
+                
             }
             domino[tempo].deg = 0;
             domino[tempo].pos_y = domino[stock].pos_y;
@@ -619,43 +621,13 @@ function check_rtop(e) {
     return (0);
 }
 
-function check_lbot(e) {
- 
+function check_lbot(e) { 
     if (e.clientX < domino[stock].pos_x  && // top 90
-        e.clientY > domino[stock].pos_y  + 50&&
+        e.clientY > domino[stock].pos_y  + 0&&
         e.clientX > domino[stock].pos_x - 50 &&
-        e.clientY < domino[stock].pos_y + 100) {
+        e.clientY < domino[stock].pos_y + 50) {
             var non = 0;
-            if (domino[stock].side2 != domino[tempo].side1 && domino[stock].side2 != domino[tempo].side2) {
-                return (0);
-            }
-            if (domino[stock].side2 == domino[tempo].side2) {
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
-                non = 1;
-            }
-            if (domino[stock].side2 == domino[tempo].side1 && non == 0) {
-                document.getElementById(domino[tempo].id).style.transform = 'rotate('+180+'deg)';
-                var test = domino[tempo].side1;
-                domino[tempo].side1 = domino[tempo].side2;
-                domino[tempo].side2 = test;
-            }
-            domino[tempo].deg = 0;
-            domino[tempo].pos_y = domino[stock].pos_y + 50;
-            domino[tempo].pos_x = domino[stock].pos_x + 56;
-            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 56 +  "px";
-            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 44 + "px";
-            document.getElementById(domino[stock].id).style.position = "fixed";
-            return (1);
-        }
-    return (0);
-}
-
-function check_rbot(e) {
-    if (e.clientX > domino[stock].pos_x + 56 && // top 90
-        e.clientY > domino[stock].pos_y  + 50&&
-        e.clientX < domino[stock].pos_x + 106 &&
-        e.clientY < domino[stock].pos_y + 100) {
-            var non = 0;
+            console.log("bad lbot");
             if (domino[stock].side2 != domino[tempo].side1 && domino[stock].side2 != domino[tempo].side2) {
                 return (0);
             }
@@ -672,8 +644,45 @@ function check_rbot(e) {
             domino[tempo].deg = 0;
             domino[tempo].pos_y = domino[stock].pos_y + 44;
             domino[tempo].pos_x = domino[stock].pos_x + 56;
-            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 56 +  "px";
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 56 +  "px";
             document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 44 + "px";
+            document.getElementById(domino[stock].id).style.position = "fixed";
+            return (1);
+        }
+    return (0);
+}
+
+function check_rbot(e) {
+    console.log(e.clientX , domino[stock].pos_x + 56 && // top 90
+        e.clientY , domino[stock].pos_y  + 50&&
+        e.clientX , domino[stock].pos_x + 106 &&
+        e.clientY , domino[stock].pos_y + 100);
+        console.log(domino[stock].pos_x);
+        console.log(domino[stock].pos_y);
+    if (e.clientX > domino[stock].pos_x + 56 && // top 90
+        e.clientY > domino[stock].pos_y + 0&&
+        e.clientX < domino[stock].pos_x + 106 &&
+        e.clientY < domino[stock].pos_y + 50) {
+            var non = 0;
+            console.log("je suis ici");
+            if (domino[stock].side2 != domino[tempo].side1 && domino[stock].side2 != domino[tempo].side2) {
+                return (0);
+            }
+            if (domino[stock].side2 == domino[tempo].side2) {
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+180+'deg)';
+                var test = domino[tempo].side1;
+                domino[tempo].side1 = domino[tempo].side2;
+                domino[tempo].side2 = test;
+                non = 1;
+            }
+            if (domino[stock].side2 == domino[tempo].side1 && non == 0) {
+                document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
+            }
+            domino[tempo].deg = 0;
+            domino[tempo].pos_y = domino[stock].pos_y + 50;
+            domino[tempo].pos_x = domino[stock].pos_x + 56;
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 56 +  "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 50 + "px";
             document.getElementById(domino[stock].id).style.position = "fixed";
             return (1);
         }
