@@ -2,11 +2,12 @@ body {
     margin:0;
     padding:0;
     background: url(background_dominos.png) no-repeat no-repeat center fixed; 
-    background-size: cover; /* version standardisée */
+    background-size: cover;
+    height: 100%;
 }
 /* ************************************************************ */
 #menu {
-    display: flex; /*display flex to add menu*/
+    display: flex;
     justify-content: center;
     text-align: center;
     align-items: center;
@@ -43,22 +44,23 @@ button.player {
 /* ************************************************************ */
 
 #game {
-    height: 100%;
+    height: 100vh;
     display: none;
     align-items: center;
     justify-content: center;
 }
 
 .player_turn {
+    z-index: 11;
     display: flex;
     position: absolute;
-    width: 600px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
     font-size: 50px;
     margin-right: 0;
-    color: aliceblue;
+    color: orange;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -74,7 +76,8 @@ button.player {
 }
 
 #plateau {
-        width: 800px;
+    position: absolute;
+    width: 1200px;
     height: 800px;
     background-color: #31BC48;
 }
@@ -85,9 +88,22 @@ button.player {
     margin: 10px;
 }
 
-/*.dominos {
-    transform-origin: top right;
-}*/
+#pioche {
+    position: absolute;
+    width: 180px;
+    height: 80px;
+    font-size:30px;
+    right: 10px;
+    top: 100px;
+    background-color: brown;
+    border: none;
+    z-index: 8;
+}
+
+.Dominos {
+    z-index: 9;
+    /*transform: scale(0.5);*/
+}
 
 #d0 {
     display: none;
