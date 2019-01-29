@@ -40,6 +40,27 @@ function gestion_player () {
 
 }
 
+function back() {
+    document.getElementById("both").style.display = "none";
+    document.getElementById("menu").style.display = "flex";
+    document.getElementById("rules").style.display = "none";
+    document.getElementById("tuto").style.display = "none";      
+}
+
+function tuto() {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("both").style.display = "flex";
+    document.getElementById("tuto").style.display = "flex";        
+    document.getElementById("rules").style.display = "none";
+}
+
+function rules() {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("both").style.display = "flex";
+    document.getElementById("tuto").style.display = "none";
+    document.getElementById("rules").style.display = "flex";
+}
+
 function leave_game() {
     document.getElementById("game").style.display = "none";
     document.getElementById("menu").style.display = "flex";
