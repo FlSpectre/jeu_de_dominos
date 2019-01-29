@@ -7,6 +7,8 @@ body {
 }
 /* ************************************************************ */
 #menu {
+    margin: 0;
+    top: -100px;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -21,7 +23,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 400px;
-    height: 500px;
+    height: 600px;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -58,10 +60,15 @@ button.player {
     height: 100%;
     justify-content: center;
     align-items: center;
+    text-align: center;
     font-size: 50px;
     margin-right: 0;
     color: orange;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+#p1 {
+    font-size: 50px;
 }
 
 #end_turn {
@@ -98,6 +105,17 @@ button.player {
     background-color: brown;
     border: none;
     z-index: 8;
+}
+
+#leave {
+    position: absolute;
+    width: 180px;
+    height: 80px;
+    font-size:30px;
+    right: 10px;
+    top: 190px;
+    background-color: brown;
+    border: none;
 }
 
 .Dominos {

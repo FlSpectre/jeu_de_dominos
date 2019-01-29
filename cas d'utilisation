@@ -14,7 +14,9 @@ gerer les doublons etc
 plus grosse paire qui commence si pas de double
 si aucun tour possible , pioche
 jeu bloquer , gagnant qui a le moins de points qui gagne
-roation du domino possible
+rotation du domino possible
+qui commence le tour ( plus grande paire ou plus grand nombre )
+
 
 
 

@@ -8,13 +8,18 @@
     <title>Dominos</title>
 </head>
 <body>
+<!--<embed loop="true" src="Tetris Official Theme song.mp3" hidden="true" type="audio/mp3"></embed>--> 
     <div id="menu">
         <div id="start_div">
             <div id="title">DOMINOS</div>
-            <button id="2" class="player" onclick="launch_game(this);">2 joueurs</button>
-            <button id="3" class="player" onclick="launch_game(this);">3 joueurs</button>
-            <button id="4" class="player" onclick="get_player_hand();">4 joueurs</button>
+            <button id="2" class="player" value="2" onclick="launch_game(this.value);">2 Players</button>
+            <button id="3" class="player" value="3" onclick="launch_game(this.value);">3 Players</button>
+            <button id="4" class="player" value="4" onclick="launch_game(this.value);">4 Players</button>
+            <button id="but_regles" class="player"onclick="rules()">Rules</button>
+            <button id="but_tuto" class="player" onclick="tuto()">How to play</button>
         </div>
+        <div id="rules"></div>
+        <div id="tuto"></div>
     </div>
     <div id="game">
             <div id ="test">
@@ -49,9 +54,10 @@
                     </div>
         <div id="plateau"></div>
         <div class="player_game"></div>
-        <div id="p1" class="player_turn" onclick="gameplay()"><H1>Player 1 Turn ! Click to Play</H1></div>
+        <div id="p1" class="player_turn" onkeypress="gameplay()"><H1>Player 1 Turn !<br> Press Enter to Play</H1></div>
         <button id="end_turn" onclick="end_turn()">Fin du Tour</button>
         <button id="pioche" onclick="do_pioche()">Piocher</button>
+        <button id="leave" onclick="leave_game()">Quitter le jeu</button>
       
         </div>
     </div>
