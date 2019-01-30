@@ -17,7 +17,8 @@ function launch_game(player) {
     document.getElementById("menu").style.display ="none";
     document.getElementById("game").style.display ="flex";    
     document.getElementById("p1").style.display ="flex"; // a remettre
-    set_dominos();
+    set_dominos();        
+    hover_player();
     asign_dominos();
     send_hand();
     set_dominos_hand_pos();
@@ -26,13 +27,26 @@ function launch_game(player) {
 
 
 function check_win() {
-    if (hand_1 == null || hand_2 == null) {
+    if (hand_1.length == 0 || hand_2.length == 0) {
         you_win();
     }
 }
 
 function you_win() {
     document.getElementById("game").style.display = "none";
+    document.getElementById("win").style.display = "flex";
+}
+
+function hover_player() {
+    if (turn == 1) {
+        document.getElementById("player2").style.backgroundColor = "#D32F2F";
+        document.getElementById("player1").style.backgroundColor = "#E57373";
+    }
+    else {
+        document.getElementById("player2").style.backgroundColor = "#E57373";
+        document.getElementById("player1").style.backgroundColor = "#D32F2F";
+
+    }
 }
 
 function gestion_player () {
@@ -79,7 +93,8 @@ function count_turn(x) {
 function new_turn(turn) {
     send_hand();
     set_dominos_hand_pos();
-    document.getElementById("p1").innerText = "Player " + turn + " Turn ! Click to Play";
+    hover_player();
+    document.getElementById("p1").innerText = "Player " + turn + " Turn ! Press Enter to Play";
     document.getElementById("p1").style.fontSize = "100px";
     document.getElementById("p1").style.fontWeight = "700";
 }
@@ -110,6 +125,9 @@ function check_key(e) {
     }
     else if (key == 13 && get_echap == 1) {
         get_echap = 0;
+        for (var i = 0; i != 28; i++) {
+            domino[i].took = 0;
+        }
         end_turn();
     }
     else if (key == 112 && get_echap == 1) {
