@@ -17,7 +17,6 @@ function launch_game(player) {
     document.getElementById("menu").style.display ="none";
     document.getElementById("game").style.display ="flex";    
     document.getElementById("p1").style.display ="flex"; // a remettre
-    console.log(player);
     set_dominos();
     asign_dominos();
     send_hand();
@@ -105,14 +104,12 @@ function end_turn() {
 var get_echap = 0;
 function check_key(e) {
     var key = e.keyCode;
-    console.log(key);
     if (key == 13 && get_echap == 0) {
         document.getElementById("p1").style.display ="none";
         get_echap = 1;
     }
     else if (key == 13 && get_echap == 1) {
         get_echap = 0;
-        console.log("ici");
         end_turn();
     }
     else if (key == 112 && get_echap == 1) {
@@ -180,7 +177,6 @@ function aff_dom_pose() {
 function set_dominos_hand_pos() {
     var space = 50;
 
-    console.log("lenght :", hand_2.length);
     for (var i = 0; i != hand_2.length; i++) {
         document.getElementById(hand_2[i]).style.left = "10px";
         document.getElementById(hand_2[i]).style.top = space + "px";
@@ -209,7 +205,9 @@ function randomize(array) {
 }
 
 function set_dominos() {
+    this.place= -1;
     this.id ="0";
+    this.nb =0;
     this.side1 ="0";
     this.side2 = "0";
     this.hand = "0";
@@ -220,6 +218,7 @@ function set_dominos() {
     this.pose="0";
     this.deg="0";
     this.free="0"; // free = 0 right ok ; -----  free = 1 top ok; ----  free = 2 left ok; ---- free = 3 bot ok;
+    this.fside= 0;
     this.get_last_place;
 }
 
@@ -232,6 +231,7 @@ function asign_dominos() {
     }
     for (var i = 0; i != 28; i++) {
         domino[i].id = "d" + i;
+        domino[i].nb = i;
         test = domino[i].id;
     }
     asign_side1();
@@ -354,20 +354,33 @@ function check_pioche() {
         }
     }
 }
-
+var stock_p1 = 0;
+var stock_p2 = 0;
+checkk = 0;
 function printMousePos(event) {
     for (var i = 0; i != 28; i++) {
         if (domino[i].took == 1 && domino[i].pose == 0 && action == 0) {
             domino[i].pos_x = event.clientX;
             domino[i].pos_y = event.clientY;
             tempo = i;
-            if (call_call(event) == -1) {
-                domino[i].took = 0;
-                domino[i].pose = 0;
-                document.getElementById(domino[i].id).style.left = "10px";
-                console.log("JE BEUG", domino[i]);
-                return;
+            if (liste.length > 1) {
+                stock = liste[liste.length - 1].nb;
+                checkk = 2;
             }
+               if (call_call(event) == -1) {
+                stock = liste[0].nb;
+                checkk = 1;
+                console.log(stock);
+                if (call_call(event) == -1) {
+                    test = 0;
+                    domino[i].took = 0;
+                    domino[i].pose = 0;
+                    document.getElementById(domino[i].id).style.left = "10px";
+                    console.log("JE BEUG", domino[i]);
+                    return;
+                }
+            }
+            test = 0;
             domino[i].get_last_place = domino[i].id;
             domino[i].took = 0;
             domino[i].pose = 1;
@@ -384,7 +397,7 @@ function printMousePos(event) {
             set_dominos_hand_pos();
             send_hand();
             check_win();
-            console.log("sides : ", domino[i].side1, domino[i].side2);
+            console.log("liste : ", liste);
             return;
         }
     }
@@ -393,12 +406,12 @@ function printMousePos(event) {
 
   el.addEventListener("click", printMousePos);
   window.addEventListener("keypress", check_key);
-    document.addEventListener("click", get_click);
+   /* document.addEventListener("click", get_click);
 
   function get_click(e) {
     console.log("click x : ", e.clientX);
     console.log("click y : ", e.clientY);    
-  }
+  }*/
 
   // 100 * 56 domino
 
@@ -417,11 +430,10 @@ function printMousePos(event) {
 /* ************************************************************************************************** */
 /* ************************************************************************************************** */
 /* ************************************************************************************************** */
-
+var liste = [];
 var count = 0;
 function call_call(e) {
     if (domino[stock].deg == 0 || domino[stock].deg == 180) {
-        console.log("lala");
         if (call_check_nr(e) == -1) {
             return -1;
         }
@@ -442,7 +454,6 @@ function call_check_r(e) {
     else {
         return -1;
     }
-    console.log("oui");
    stock = tempo;
 } 
 function call_check_nr(e) {
@@ -465,6 +476,9 @@ function first_pose(e) {
         document.getElementById(domino[tempo].id).style.left = domino[tempo].pos_x  + "px";
         document.getElementById(domino[tempo].id).style.top = domino[tempo].pos_y  +"px";
         domino_pose = 1;
+        liste.push(domino[tempo]);
+        liste[0].place = 1;
+        domino[tempo].fside++;
         return (1);
     }
     return(0);
@@ -485,7 +499,6 @@ function check_left(e) {
                 return (0);
             }
             domino[tempo].free = "left";
-
             if (domino[stock].side1 == domino[tempo].side2) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
                 domino[tempo].deg = 90;
@@ -497,8 +510,10 @@ function check_left(e) {
                 domino[tempo].side2 = test;
                 domino[tempo].deg = 180;
             }
-            console.log(domino[tempo]);
-        domino[tempo].pos_y = domino[stock].pos_y;
+            if (checkk == 1) {
+
+            }
+            domino[tempo].pos_y = domino[stock].pos_y;
         domino[tempo].pos_x = domino[stock].pos_x - 100;
         document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 100 +  "px";
         document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y  + "px";
@@ -531,6 +546,18 @@ function check_right(e) {
                 var test = domino[tempo].side1;
                 domino[tempo].side1 = domino[tempo].side2;
                 domino[tempo].side2 = test;
+            }
+            if (liste[liste.length - 1].place == 2 || liste[liste.length - 1].place == -1) {
+                liste.push(domino[tempo]);
+                liste[liste.length - 1].place = 2;
+                if (liste.length - 2 >= 0) {
+                    liste[liste.length - 2].place = -1;
+                }
+            }
+            else {
+                liste.push(domino[tempo]);
+                liste[0].liste = 1;
+                liste[1].liste = 2;                 
             }
             domino[tempo].pos_y = domino[stock].pos_y;
             domino[tempo].pos_x = domino[stock].pos_x + 100;
@@ -565,6 +592,14 @@ function check_tleft(e) {
                 domino[tempo].side2 = test;       
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';               
                 domino[tempo].deg = 270;
+            }
+            if (liste[0].place == 1) {
+                liste.unshift(domino[tempo]);
+                liste[0].place = 1;
+                if (liste.length > 2) {
+                    liste[1].place = -1;
+                    liste[liste.length - 1].place = 2;
+                }
             }
             domino[tempo].pos_y = domino[stock].pos_y - 100;
             domino[tempo].pos_x = domino[stock].pos_x;
@@ -601,11 +636,19 @@ function check_tright(e) {
             if (domino[stock].side2 == domino[tempo].side2 && non == 0) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
                 domino[tempo].deg = 90;
-                /*var test = domino[tempo].side1;
-                domino[tempo].side1 = domino[tempo].side2;
-                domino[tempo].side2 = test; */
             }
-
+            if (liste[liste.length - 1].place == 2 || liste[liste.length - 1].place == -1) {
+                liste.push(domino[tempo]);
+                liste[liste.length - 1].place = 2;
+                if (liste.length - 2 >= 0) {
+                    liste[liste.length - 2].place = -1;
+                }
+            }
+            else {
+                liste.push(domino[tempo]);
+                liste[0].liste = 1;
+                liste[1].liste = 2;                 
+            }
             domino[tempo].deg = 90;
             domino[tempo].pos_y = domino[stock].pos_y - 100;
             domino[tempo].pos_x = domino[stock].pos_x + 44;
@@ -642,6 +685,14 @@ function check_bleft(e) {
             if (domino[stock].side1 == domino[tempo].side1 && non == 0) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
                 domino[tempo].deg = 90;
+            }
+            if (liste[0].place == 1) {
+                liste.unshift(domino[tempo]);
+                liste[0].place = 1;
+                if (liste.length > 2) {
+                    liste[1].place = -1;
+                    liste[liste.length - 1].place = 2;
+                }
             }
             domino[tempo].pos_y = domino[stock].pos_y + 56;
             domino[tempo].pos_x = domino[stock].pos_x;
@@ -683,8 +734,18 @@ function check_bright(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
             domino[tempo].deg = 90;                
             }
-            console.log(domino[tempo].side1);
-            console.log(domino[tempo].side2);
+            if (liste[liste.length - 1].place == 2 || liste[liste.length - 1].place == -1) {
+                liste.push(domino[tempo]);
+                liste[liste.length - 1].place = 2;
+                if (liste.length - 2 >= 0) {
+                    liste[liste.length - 2].place = -1;
+                }
+            }
+            else {
+                liste.push(domino[tempo]);
+                liste[0].liste = 1;
+                liste[1].liste = 2;                 
+            }
             domino[tempo].pos_y = domino[stock].pos_y + 50;
             domino[tempo].pos_x = domino[stock].pos_x + 44;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 22 + "px";
@@ -720,7 +781,16 @@ function check_top(e) {
                 domino[tempo].side1 = domino[tempo].side2;
                 domino[tempo].side2 = test;
             domino[tempo].deg = 270;
-
+            }
+            if (checkk == 2) {
+                liste.push(domino[tempo]);
+                liste[liste.length - 1].place = 2;
+                liste[liste.length - 2].place = -1;
+            }
+            else {
+                liste.unshift(domino[tempo]);
+                liste[0].place = 1;
+                liste[1].place = -1;
             }
             domino[tempo].pos_y = domino[stock].pos_y - 100;
             domino[tempo].pos_x = domino[stock].pos_x;
@@ -755,6 +825,7 @@ function check_bot(e) {
                 domino[tempo].side2 = test;
                 non = 1;
             domino[tempo].deg = 270;
+            liste.push(domino[tempo]);
 
             }
             if (domino[stock].side2 == domino[tempo].side1 && non == 0) {
@@ -837,6 +908,7 @@ function check_rtop(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
             domino[tempo].deg = 0;
             }
+        liste.push(domino[tempo]);
             domino[tempo].pos_y = domino[stock].pos_y;
             domino[tempo].pos_x = domino[stock].pos_x + 56;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 56 +  "px";
