@@ -455,7 +455,7 @@ function call_call(e) {
             return -1;
         }
     }
-    else if (domino[stock].deg == 0 || domino[stock].deg == 180) {
+    else if (domino[stock].deg == 90 || domino[stock].deg == 270) {
         if (call_check_r(e) == -1) {
             return -1;        
        }
@@ -772,9 +772,9 @@ function check_bright(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
-            domino[tempo].pos_y = domino[stock].pos_y + 37;
+            domino[tempo].pos_y = domino[stock].pos_y + 38;
             domino[tempo].pos_x = domino[stock].pos_x + 37;
-            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 19 + "px";
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 18 + "px";
             document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 55 + "px";
             return(1);
         }
@@ -868,8 +868,8 @@ function check_bot(e) {
             }
             domino[tempo].pos_y = domino[stock].pos_y + 75;
             domino[tempo].pos_x = domino[stock].pos_x;
-            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 18 +  "px";
-            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 75 + "px";
+            document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 19 +  "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 90 + "px";
             return(1);
         }
     return (0);
