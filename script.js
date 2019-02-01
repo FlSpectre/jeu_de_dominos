@@ -15,14 +15,13 @@ var action = 0;
 
 function launch_game(player) {
     document.getElementById("menu").style.display ="none";
-    document.getElementById("game").style.display ="flex";    
-    document.getElementById("p1").style.display ="flex"; // a remettre
+    document.getElementById("game").style.display ="flex";
     set_dominos();  
     asign_dominos();
     asign_dominos_hand();
     set_dominos_hand_pos();
+    hover_player();
     send_hand();
-    console.log(domino);
 }
 
 
@@ -33,17 +32,16 @@ function check_win() {
 }
 
 function you_win() {
-    document.getElementById("game").style.display = "none";
-    document.getElementById("win").style.display = "flex";
+    //afficher win , mettre un bouton retour menu ( envoyer au reload )
 }
 
 function hover_player() {
     if (turn == 1) {
         document.getElementById("player2").style.backgroundColor = "#D32F2F";
-        document.getElementById("player1").style.backgroundColor = "#E57373";
+        document.getElementById("player1").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
     }
     else {
-        document.getElementById("player2").style.backgroundColor = "#E57373";
+        document.getElementById("player2").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
         document.getElementById("player1").style.backgroundColor = "#D32F2F";
 
     }
@@ -75,8 +73,7 @@ function rules() {
 }
 
 function leave_game() {
-    document.getElementById("game").style.display = "none";
-    document.getElementById("menu").style.display = "flex";
+    document.location.reload();
 }
 
 function count_turn(x) {
@@ -94,13 +91,7 @@ function new_turn(turn) {
     send_hand();
     set_dominos_hand_pos();
     hover_player();
-    document.getElementById("p1").innerText = "Player " + turn + " Turn ! Press Enter to Play";
-    document.getElementById("p1").style.fontSize = "100px";
-    document.getElementById("p1").style.fontWeight = "700";
-}
-
-function gameplay() {
-    document.getElementById("p1").style.display ="none";
+    check_possible_move();
 }
 
 function end_turn() {
@@ -113,25 +104,23 @@ function end_turn() {
     else {
         new_turn(1);
     }
-    document.getElementById("p1").style.display ="flex";
 }
 
-var get_echap = 0;
 function check_key(e) {
     var key = e.keyCode;
-    if (key == 13 && get_echap == 0) {
-        document.getElementById("p1").style.display ="none";
-        get_echap = 1;
-    }
-    else if (key == 13 && get_echap == 1) {
-        get_echap = 0;
+    console.log
+    if (key == 13) {
         for (var i = 0; i != 28; i++) {
             domino[i].took = 0;
         }
         end_turn();
     }
-    else if (key == 112 && get_echap == 1) {
+    else if (key == 112) {
+        get_echap = 0;
         do_pioche();
+    }
+    else if (key == 27) {
+        leave_game();
     }
 }
 
@@ -193,14 +182,18 @@ function aff_dom_pose() {
 }
 
 function set_dominos_hand_pos() {
-    var space = 37.5;
+    var get_test = document.getElementById("test");
+    var pos_test = get_test.offsetTop;
+    var space = pos_test;
+    space = 10;
 
+    console.log(space);
     for (var i = 0; i != hand_2.length; i++) {
         document.getElementById(hand_2[i]).style.left = "10px";
         document.getElementById(hand_2[i]).style.top = space + "px";
         space = space + 70;
     }
-    space = 37.5;
+    space = 10;
     for (var i = 0; i != hand_1.length; i++) {
         document.getElementById(hand_1[i]).style.left = "10px";
         document.getElementById(hand_1[i]).style.top = space + "px";
@@ -410,25 +403,78 @@ function printMousePos(event) {
             else {
                 slice_hand(1, domino[i].id);
             }
+            domino[i].hand = 0;
             action = 1;
             set_dominos_hand_pos();
             send_hand();
             check_win();
+            check_possible_move();
             console.log("liste : ", liste);
             return;
         }
     }
-  }
+}
+turn0 = 0;
+function check_possible_move() {
+    var value1 = -1; 
+    var value2 = -1; 
+    var new_hand1 = [];
+
+    if (turn0 == 0) {
+        turn0++;
+        return 0;
+    }
+    if (liste.length > 0) {
+    value1 = liste[0].nb;        
+    }
+    if  (liste.length -1 < 0) {
+        value2 = liste[liste.length-1].nb;
+    }
+    console.log(value2);
+    console.log(value1);
+    for (var i = 0; i <= 27; i++) {
+        if (turn == 1 && domino[i].hand == 1 && 
+            (domino[i].side1 == domino[value2].side1 || 
+                domino[i].side2 == domino[value2].side1)) {
+            console.log(domino[i]);
+            console.log("OUI1");
+            }
+            if (turn == 1 && domino[i].hand == 1 && 
+                (domino[i].side1 == domino[value1].side2 || 
+                    domino[i].side2 == domino[value1].side2)) {
+                console.log(domino[i]);
+                console.log("OUI3");
+        }
+        
+    }
+    for (var i = 0; i <= 27; i++) {
+               
+            if (turn == 0 && domino[i].hand == 2 && 
+                (domino[i].side1 == domino[value2].side1 || 
+                    domino[i].side2 == domino[value2].side1)) {
+                console.log(domino[i]);
+                console.log("OUI2");
+            }
+            if (turn == 0 && domino[i].hand == 2 && 
+                (domino[i].side1 == domino[value1].side2 || 
+                    domino[i].side2 == domino[value1].side2)) {
+                console.log(domino[i]);
+                console.log(domino[value2].side1);
+                console.log("OUI4");
+            }
+        }
+}
+
   var el = document.getElementById("plateau");
 
   el.addEventListener("click", printMousePos);
   window.addEventListener("keypress", check_key);
-    document.addEventListener("click", get_click);
+   /* document.addEventListener("click", get_click);
 
   function get_click(e) {
     console.log("click x : ", e.clientX);
     console.log("click y : ", e.clientY);    
-  }
+  }*/
 
   // 75 * 37.5 domino
 
@@ -677,7 +723,7 @@ function check_tright(e) {
             }
             domino[tempo].deg = 90;
             domino[tempo].pos_y = domino[stock].pos_y - 75;
-            domino[tempo].pos_x = domino[stock].pos_x + 37;
+            domino[tempo].pos_x = domino[stock].pos_x + 38;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 19 +  "px";
             document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y - 55 + "px";
             return(1);
@@ -725,9 +771,7 @@ function check_bleft(e) {
             domino[tempo].pos_y = domino[stock].pos_y + 37;
             domino[tempo].pos_x = domino[stock].pos_x;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 19 +  "px";
-            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 55 + "px";
-            console.log(domino[stock].pos_x);
-            console.log(domino[stock].pos_y);
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 56 + "px";
             return(1);
         }
         return (0);
@@ -869,7 +913,7 @@ function check_bot(e) {
             domino[tempo].pos_y = domino[stock].pos_y + 75;
             domino[tempo].pos_x = domino[stock].pos_x;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 19 +  "px";
-            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 90 + "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 91 + "px";
             return(1);
         }
     return (0);
@@ -961,10 +1005,10 @@ function check_rtop(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
-            domino[tempo].pos_y = domino[stock].pos_y;
+            domino[tempo].pos_y = domino[stock].pos_y + 1;
             domino[tempo].pos_x = domino[stock].pos_x + 37;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 37 +  "px";
-            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 1 + "px";
             return (1);
         }
     return (0);
@@ -1008,10 +1052,10 @@ function check_lbot(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
-            domino[tempo].pos_y = domino[stock].pos_y + 19;
+            domino[tempo].pos_y = domino[stock].pos_y + 34;
             domino[tempo].pos_x = domino[stock].pos_x - 75;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 75 +  "px";
-            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 19 + "px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 35 + "px";
             console.log(domino[tempo].pos_x);
             console.log(domino[stock].pos_x);
             return (1);
@@ -1057,10 +1101,10 @@ function check_rbot(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
-            domino[tempo].pos_y = domino[stock].pos_y + 19;
+            domino[tempo].pos_y = domino[stock].pos_y + 36;
             domino[tempo].pos_x = domino[stock].pos_x + 37;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 37 + "px";
-            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 19 +"px";
+            document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + 36 +"px";
             return (1);
         }
     return (0);

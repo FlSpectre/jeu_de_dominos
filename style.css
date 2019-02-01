@@ -129,35 +129,7 @@ button.player {
     justify-content: center;
 }
 
-.player_turn {
-    z-index: 11;
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 50px;
-    margin-right: 0;
-    color: orange;
-    background-color: rgba(0, 0, 0, 0.5);
-}
 
-#p1 {
-    font-size: 50px;
-}
-
-#end_turn {
-    position: absolute;
-    width: 180px;
-    height: 80px;
-    font-size:30px;
-    right: 10px;
-    top: 10px;
-    background-color: brown;
-    border: none;
-}
 
 #plateau {
     position: absolute;
@@ -168,30 +140,50 @@ button.player {
 
 #test {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0vh;
+    left: 0;
     flex-direction: column;
-    margin: 10px;
+    height: 500px;
+    width: 100px;
+    border-radius: 20px;
+    background-color: #31BC48;
 }
 
 #pioche {
     position: absolute;
-    width: 180px;
-    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    left: 50px;
+    bottom: 10px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    z-index: 8;
+}
+
+#end_turn {
+    position: absolute;
     font-size:30px;
     right: 10px;
-    top: 100px;
-    background-color: brown;
+    bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
     border: none;
-    z-index: 8;
+    padding: 5px;
 }
 
 #leave {
     position: absolute;
-    width: 180px;
-    height: 80px;
     font-size:30px;
-    right: 10px;
-    top: 190px;
-    background-color: brown;
+    right: 270px;
+    bottom: 10px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
     border: none;
 }
 

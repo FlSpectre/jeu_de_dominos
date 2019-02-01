@@ -12,16 +12,16 @@
     <div id="menu">
         <div id="start_div">
             <div id="title">DOMINOS</div>
-            <button id="2" class="player" value="2" onclick="launch_game(this.value);">2 Players</button>
-            <button id="3" class="player" value="3" onclick="launch_game(this.value);">3 Players</button>
-            <button id="4" class="player" value="4" onclick="launch_game(this.value);">4 Players</button>
-            <button id="but_regles" class="player"onclick="rules()">Rules</button>
-            <button id="but_tuto" class="player" onclick="tuto()">How to play</button>
+            <button id="2" class="player" value="2" onclick="launch_game(this.value);">2 Joueurs</button>
+            <button id="3" class="player" value="3" onclick="launch_game(this.value);">3 Joueurs</button>
+            <button id="4" class="player" value="4" onclick="launch_game(this.value);">4 Joueurs</button>
+            <button id="but_regles" class="player"onclick="rules()">Règles</button>
+            <button id="but_tuto" class="player" onclick="tuto()">Comment jouer</button>
         </div>
         
     </div>
     <div id="both">
-        <button id="back" onclick="back()">BACK</button>
+        <button id="back" onclick="back()">Retour</button>
         <div id="tuto"><h1>comming soon</h1></div>
         <div id="rules"><H1>Les règles du domino</H1>
             <p>28 dominos.<br>
@@ -125,14 +125,14 @@
                     </div>
         <div id="plateau"></div>
         <div id="playerboard">
-            <div id="player1">Player 1</div>
-            <div id="player2">Player 2</div>
+            <div id="player1">Joueur 1</div>
+            <div id="player2">Joueur 2</div>
         </div>
         <div class="player_game"></div>
-        <div id="p1" class="player_turn" onkeypress="gameplay()"><H1>Player 1 Turn !<br> Press Enter to Play</H1></div>
-        <button id="end_turn" onclick="end_turn()">Fin du Tour</button>
-        <button id="pioche" onclick="do_pioche()">Piocher</button>
-        <button id="leave" onclick="leave_game()">Quitter le jeu</button>
+        <div id="p1" class="player_turn" onkeypress="gameplay()"></div>
+        <button id="end_turn" onclick="end_turn()">Enter: Fin du Tour</button>
+        <div id="pioche">P: Piocher</div>
+        <button id="leave" onclick="leave_game()">Suppr: Quitter</button>
       
         </div>
     </div>
