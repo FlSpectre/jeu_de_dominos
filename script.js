@@ -88,10 +88,10 @@ function count_turn(x) {
 }
 
 function new_turn(turn) {
+    check_possible_move();
     send_hand();
     set_dominos_hand_pos();
     hover_player();
-    check_possible_move();
 }
 
 function end_turn() {
@@ -415,6 +415,11 @@ function printMousePos(event) {
     }
 }
 turn0 = 0;
+console.log(turn);
+var valid_turn = 0; // if valid turn != 1 can't pass turn
+var possible_move = 0; // if possible move < 1 can't move
+
+
 function check_possible_move() {
     var value1 = -1; 
     var value2 = -1; 
@@ -425,41 +430,47 @@ function check_possible_move() {
         return 0;
     }
     if (liste.length > 0) {
-    value1 = liste[0].nb;        
+        value1 = liste[0].nb;        
     }
-    if  (liste.length -1 < 0) {
-        value2 = liste[liste.length-1].nb;
+    if  (liste.length >= 2) {
+        value2 = liste[liste.length - 1].nb;
     }
-    console.log(value2);
-    console.log(value1);
+    console.log("value 2 :",value2);
+    console.log("value 1 :",value1);
+    if (value1 != -1 && value2 != -1) {
+        console.log(domino[value1].side1);
+        console.log(domino[value2].side2);
+    }
+    for (var i = 0; i < liste.length; i++) {
+
+    }
     for (var i = 0; i <= 27; i++) {
         if (turn == 1 && domino[i].hand == 1 && 
-            (domino[i].side1 == domino[value2].side1 || 
-                domino[i].side2 == domino[value2].side1)) {
+            (domino[i].side1 == domino[value1].side1 || 
+                domino[i].side2 == domino[value1].side1)) {
             console.log(domino[i]);
             console.log("OUI1");
             }
-            if (turn == 1 && domino[i].hand == 1 && 
-                (domino[i].side1 == domino[value1].side2 || 
-                    domino[i].side2 == domino[value1].side2)) {
-                console.log(domino[i]);
-                console.log("OUI3");
+            
+            if (value2 != -1 && turn == 1 && domino[i].hand == 1 && 
+                (domino[i].side1 == domino[value2].side2 || 
+                    domino[i].side2 == domino[value2].side2)) {
+                        console.log(domino[i]);
+                        console.log("OUI2");
         }
         
     }
     for (var i = 0; i <= 27; i++) {
-               
-            if (turn == 0 && domino[i].hand == 2 && 
-                (domino[i].side1 == domino[value2].side1 || 
-                    domino[i].side2 == domino[value2].side1)) {
+        if (turn == 0 && domino[i].hand == 2 && 
+                (domino[i].side1 == domino[value1].side1 || 
+                    domino[i].side2 == domino[value1].side1)) {
                 console.log(domino[i]);
-                console.log("OUI2");
+                console.log("OUI3");
             }
-            if (turn == 0 && domino[i].hand == 2 && 
-                (domino[i].side1 == domino[value1].side2 || 
-                    domino[i].side2 == domino[value1].side2)) {
+            if (value2 != -1 && turn == 0 && domino[i].hand == 2 && 
+                (domino[i].side1 == domino[value2].side2 || 
+                    domino[i].side2 == domino[value2].side2)) {
                 console.log(domino[i]);
-                console.log(domino[value2].side1);
                 console.log("OUI4");
             }
         }
@@ -575,15 +586,19 @@ function check_left(e) {
                 domino[tempo].side2 = test;
                 domino[tempo].deg = 180;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
                 liste[0].place = 1;
-                liste[1].place = -1;
+                if (liste.length > 2) {
+                    liste[1].place = -1;
+                }
             }
             domino[tempo].pos_y = domino[stock].pos_y;
         domino[tempo].pos_x = domino[stock].pos_x - 75;
@@ -621,15 +636,19 @@ function check_right(e) {
                 domino[tempo].side1 = domino[tempo].side2;
                 domino[tempo].side2 = test;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
                 liste[0].place = 1;
-                liste[1].place = -1;
+                if (liste.length > 2) {
+                    liste[1].place = -1;
+                }
             }
             domino[tempo].pos_y = domino[stock].pos_y;
             domino[tempo].pos_x = domino[stock].pos_x + 75;
@@ -665,10 +684,12 @@ function check_tleft(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+270+'deg)';               
                 domino[tempo].deg = 270;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -711,10 +732,12 @@ function check_tright(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
                 domino[tempo].deg = 90;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -758,10 +781,12 @@ function check_bleft(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
                 domino[tempo].deg = 90;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -806,10 +831,12 @@ function check_bright(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
             domino[tempo].deg = 90;                
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -852,10 +879,12 @@ function check_top(e) {
                 domino[tempo].side2 = test;
             domino[tempo].deg = 270;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -900,10 +929,12 @@ function check_bot(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+90+'deg)';
             domino[tempo].deg = 90;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -948,10 +979,12 @@ function check_ltop(e) {
                 domino[tempo].side2 = test;
                 domino[tempo].deg = 180;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -995,10 +1028,12 @@ function check_rtop(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
             domino[tempo].deg = 0;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -1042,10 +1077,12 @@ function check_lbot(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+180+'deg)';
                 domino[tempo].deg = 180;
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
@@ -1091,10 +1128,12 @@ function check_rbot(e) {
                 document.getElementById(domino[tempo].id).style.transform = 'rotate('+0+'deg)';
                 domino[tempo].deg = 0; 
             }
-            if (checkk == 2) {
+            if (liste.length >= 1 && checkk == 2) {
                 liste.push(domino[tempo]);
                 liste[liste.length - 1].place = 2;
-                liste[liste.length - 2].place = -1;
+                if (liste.length > 2) {
+                    liste[liste.length - 2].place = -1;
+                }
             }
             else {
                 liste.unshift(domino[tempo]);
