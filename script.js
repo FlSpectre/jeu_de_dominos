@@ -229,7 +229,8 @@ function set_dominos() {
     this.pose="0";
     this.deg="0";
     this.free="0"; // free = 0 right ok ; -----  free = 1 top ok; ----  free = 2 left ok; ---- free = 3 bot ok;
-    this.fside= 0;
+    this.fside= -1; // nb of free side that i can place domino;
+    this.possible = 0;
     this.get_last_place;
 }
 
@@ -445,35 +446,68 @@ function check_possible_move() {
 
     }
     for (var i = 0; i <= 27; i++) {
-        if (turn == 1 && domino[i].hand == 1 && 
+        if (turn == 0 && domino[i].hand == 2) {
+            console.log("je suis ici");
+        if (domino[value1].fside == 1 && 
             (domino[i].side1 == domino[value1].side1 || 
-                domino[i].side2 == domino[value1].side1)) {
+            domino[i].side2 == domino[value1].side1)) {
             console.log(domino[i]);
-            console.log("OUI1");
-            }
-            
-            if (value2 != -1 && turn == 1 && domino[i].hand == 1 && 
-                (domino[i].side1 == domino[value2].side2 || 
-                    domino[i].side2 == domino[value2].side2)) {
-                        console.log(domino[i]);
-                        console.log("OUI2");
+            domino[i].possible = 1;
+            console.log("OUI11");
+            }    
+        if (value2 != -1 && domino[value2].fside == 1 && 
+            (domino[i].side1 == domino[value2].side1 || 
+            domino[i].side2 == domino[value2].side1)) {
+            console.log(domino[i]);
+            domino[i].possible = 1;
+            console.log("OUI12");
         }
-        
+        if (domino[value1].fside == 2 && 
+            (domino[i].side1 == domino[value1].side2 || 
+            domino[i].side2 == domino[value1].side2)) {
+            console.log(domino[i]);
+            domino[i].possible = 1;
+            console.log("OUI13");
+            }    
+        if (value2 != -1 && domino[value2].fside == 2 && 
+            (domino[i].side1 == domino[value2].side2 || 
+            domino[i].side2 == domino[value2].side2)) {
+            console.log(domino[i]);
+            domino[i].possible = 1;
+            console.log("OUI14");
+        }
     }
-    for (var i = 0; i <= 27; i++) {
-        if (turn == 0 && domino[i].hand == 2 && 
-                (domino[i].side1 == domino[value1].side1 || 
-                    domino[i].side2 == domino[value1].side1)) {
-                console.log(domino[i]);
-                console.log("OUI3");
-            }
-            if (value2 != -1 && turn == 0 && domino[i].hand == 2 && 
-                (domino[i].side1 == domino[value2].side2 || 
-                    domino[i].side2 == domino[value2].side2)) {
-                console.log(domino[i]);
-                console.log("OUI4");
-            }
+    if (turn == 0 && domino[i].hand == 1) {
+        if (domino[value1].fside == 1 && 
+            (domino[i].side1 == domino[value1].side1 || 
+            domino[i].side2 == domino[value1].side1)) {
+            console.log(domino[i]);
+            domino[i].possible = 1;
+            console.log("O");
+            }    
+        if (value2 != -1 && domino[value2].fside == 1 && 
+            (domino[i].side1 == domino[value2].side1 || 
+            domino[i].side2 == domino[value2].side1)) {
+            console.log(domino[i]);
+            domino[i].possible = 1;
+            console.log("U");
         }
+        if (domino[value1].fside == 2 && 
+            (domino[i].side1 == domino[value1].side2 || 
+            domino[i].side2 == domino[value1].side2)) {
+            console.log(domino[i]);
+            domino[i].possible = 1;
+            console.log("I");
+            }    
+        if (value2 != -1 && domino[value2].fside == 2 && 
+            (domino[i].side1 == domino[value2].side2 || 
+            domino[i].side2 == domino[value2].side2)) {
+            console.log(domino[i]);
+            domino[i].possible = 1;
+            console.log("4");
+           }
+        }
+    }
 }
 
   var el = document.getElementById("plateau");
@@ -552,9 +586,9 @@ function first_pose(e) {
         document.getElementById(domino[tempo].id).style.left = domino[tempo].pos_x  + "px";
         document.getElementById(domino[tempo].id).style.top = domino[tempo].pos_y  +"px";
         domino_pose = 1;
+        domino[tempo].fside = 1;
         liste.push(domino[tempo]);
         liste[0].place = 1;
-        domino[tempo].fside++;
         return (1);
     }
     return(0);
@@ -650,6 +684,7 @@ function check_right(e) {
                     liste[1].place = -1;
                 }
             }
+            domino[tempo].fside = 2;
             domino[tempo].pos_y = domino[stock].pos_y;
             domino[tempo].pos_x = domino[stock].pos_x + 75;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 75 + "px";
@@ -696,6 +731,7 @@ function check_tleft(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 1;
             domino[tempo].pos_y = domino[stock].pos_y - 75;
             domino[tempo].pos_x = domino[stock].pos_x;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 19 +  "px";
@@ -744,6 +780,7 @@ function check_tright(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 1;
             domino[tempo].deg = 90;
             domino[tempo].pos_y = domino[stock].pos_y - 75;
             domino[tempo].pos_x = domino[stock].pos_x + 38;
@@ -793,6 +830,7 @@ function check_bleft(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 2;
             domino[tempo].pos_y = domino[stock].pos_y + 37;
             domino[tempo].pos_x = domino[stock].pos_x;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 19 +  "px";
@@ -843,6 +881,7 @@ function check_bright(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 2;
             domino[tempo].pos_y = domino[stock].pos_y + 38;
             domino[tempo].pos_x = domino[stock].pos_x + 37;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 18 + "px";
@@ -891,6 +930,7 @@ function check_top(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 1;
             domino[tempo].pos_y = domino[stock].pos_y - 75;
             domino[tempo].pos_x = domino[stock].pos_x;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 19 + "px";
@@ -941,6 +981,7 @@ function check_bot(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 2;
             domino[tempo].pos_y = domino[stock].pos_y + 75;
             domino[tempo].pos_x = domino[stock].pos_x;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 19 +  "px";
@@ -991,6 +1032,7 @@ function check_ltop(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 1;
             domino[tempo].pos_y = domino[stock].pos_y;
             domino[tempo].pos_x = domino[stock].pos_x - 75;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 75 +  "px";
@@ -1040,6 +1082,7 @@ function check_rtop(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 2;
             domino[tempo].pos_y = domino[stock].pos_y + 1;
             domino[tempo].pos_x = domino[stock].pos_x + 37;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 37 +  "px";
@@ -1089,6 +1132,7 @@ function check_lbot(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 1;
             domino[tempo].pos_y = domino[stock].pos_y + 34;
             domino[tempo].pos_x = domino[stock].pos_x - 75;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x - 75 +  "px";
@@ -1140,6 +1184,7 @@ function check_rbot(e) {
                 liste[0].place = 1;
                 liste[1].place = -1;
             }
+            domino[tempo].fside = 2;
             domino[tempo].pos_y = domino[stock].pos_y + 36;
             domino[tempo].pos_x = domino[stock].pos_x + 37;
             document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + 37 + "px";
