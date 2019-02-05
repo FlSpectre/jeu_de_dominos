@@ -1,0 +1,18 @@
+ALL
+-gerer les collisions
+-gerer le placement des doubles
+-gerer correctement l'intéraction bouton et touche
+-gerer la condition de victoire (none fonctionnelle) 
+et rajouter les autres possibilités
+-how to play a dessiner ou faire (montrer ou cliquer pour placer le domino)
+-revoir le design
+-remplacer les dominos par ceux de guillaume et modif les conditons de check avec
+-gerer les players
+-gerer correctement l'option quitter le jeu
+-gerer le joueur qui commence (double le plus grand etc)
+
+
+
+IMPORTANT
+-gerer le placement des dominos de chaques coté
+-remplacer les dominos par ceux de guillaume et modif les conditons de check avec
