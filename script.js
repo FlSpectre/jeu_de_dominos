@@ -214,7 +214,17 @@ function randomize(array) {
     }
     return array;
 }
-
+/*
+***************************************************************************************************************
+***************************************************************************************************************
+***************************************************************************************************************
+***************************************************************************************************************
+***************************************************************************************************************
+***************************************************************************************************************
+***************************************************************************************************************
+***************************************************************************************************************
+***************************************************************************************************************
+*/
 function set_dominos() {
     this.place= -1;
     this.id ="0";
@@ -228,6 +238,8 @@ function set_dominos() {
     this.took="0";
     this.pose="0";
     this.deg="0";
+    this.tab_side0 = [1,2,3,4,5,6]; // tab that contain only free side
+    this.tab_side90 = [1,2,3,4,5,6]; //
     this.free="0"; // free = 0 right ok ; -----  free = 1 top ok; ----  free = 2 left ok; ---- free = 3 bot ok;
     this.fside= -1; // nb of free side that i can place domino;
     this.possible = 0;
@@ -540,20 +552,29 @@ function check_possible_move() {
 /* ************************************************************************************************** */
 var liste = [];
 var count = 0;
+var first = 0;
 function call_call(e) {
-    if (domino[stock].deg == 0 || domino[stock].deg == 180) {
-        if (call_check_nr(e) == -1) {
-            return -1;
+    if (domino_pose == 0) {
+        first_pose(e);
+        stock = tempo;
+    }
+    else if (domino[stock].deg == 0 || domino[stock].deg == 180) {
+            //domino[stock].tab_side0;
+            console.log(domino[stock]);
+            console.log(domino[tempo]);
+            if (call_check_nr(e) == -1) {
+                return -1;
+            }
         }
-    }
-    else if (domino[stock].deg == 90 || domino[stock].deg == 270) {
-        if (call_check_r(e) == -1) {
-            return -1;        
-       }
-    }
+        else if (domino[stock].deg == 90 || domino[stock].deg == 270) {
+            if (call_check_r(e) == -1) {
+                return -1;        
+            }
+        }
+    
     return 0;
 }
-
+console.log(domino);
 function call_check_r(e) {
     if (check_top(e) != 0);
     else if (check_bot(e) != 0);
@@ -619,13 +640,17 @@ function set_pos(nb1, nb2, nb3, nb4) {
         document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y  + nb4 + "px";
 }
 
-function place_double(nb1, nb2, nb3, nb4, deg1) {
-    domino[tempo].pos_y = domino[stock].pos_y + nb1;
-    domino[tempo].pos_x = domino[stock].pos_x + nb2;
-    document.getElementById(domino[tempo].id).style.left = domino[stock].pos_x + nb3 +  "px";
-    document.getElementById(domino[tempo].id).style.top = domino[stock].pos_y + nb4 +"px";
-    document.getElementById(domino[tempo].id).style.transform = 'rotate('+deg1+'deg)';
-    domino[tempo].deg = deg1;    
+function check_free_side(tab, new_tab) {   
+    for (var i = 0; i < tab.length - 1; i++) {
+        if (tab[i] == new_tab) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+function asign_free_domino() {
+
 }
 
 function first_pose(e) {
@@ -636,7 +661,6 @@ function first_pose(e) {
         domino[tempo].fside = 1;
         liste.push(domino[tempo]);
         liste[0].place = 1;
-        //rotate_dom(domino[tempo].side1, domino[tempo].side1, domino[tempo].side2);
         return (1);
     }
     return(0);
@@ -669,13 +693,11 @@ function check_right(e) {
     if (e.clientX >= domino[stock].pos_x + 75 && // RIGHT
         e.clientY >= domino[stock].pos_y &&
         e.clientX <= domino[stock].pos_x + 110 &&
-        e.clientY <= domino[stock].pos_y + 37.5) {
+        e.clientY <= domino[stock].pos_y + 37.5 && 
+        (domino[stock].side2 == domino[tempo].side1 ||
+        domino[stock].side2 == domino[tempo].side2)) {
             console.log("right");
-            if (domino[stock].side2 != domino[tempo].side1 && domino[stock].side2 != domino[tempo].side2) {
-                return (0);
-            }
-            if (domino[stock].free != 0 && domino[stock].free != "right") {
-                console.log("pas ici stp");
+            if (check_free_side(domino[stock].tab_side0, 4) != 1) {
                 return (0);
             }
             add_list();
@@ -683,8 +705,12 @@ function check_right(e) {
                 set_pos(-20, 75, 55, 0); // 20 55 55 0
                 rotate_dom(domino[stock].side2, domino[tempo].side2, domino[tempo].side1, 90, 270);
                 domino[tempo].free = "double";
+                domino[tempo].tab_side90 = [1,2,3,4,-1,-1];
+                domino[tempo].tab_side0 = [1,2,3,4,-1,-1];
                 return (1);
             }
+            domino[tempo].tab_side0 = [,,,4,5,6];
+            domino[stock].tab_side0 = [,,,,,];
             set_pos(0, 75, 75, 0);
             rotate_dom(domino[stock].side2, domino[tempo].side2, domino[tempo].side1, 0, 180);
             domino[tempo].fside = 2;
@@ -931,21 +957,4 @@ function check_rbot(e) {
             return (1);
         }
     return (0);
-}
-
-function push() {
-var tab = [4,3,1];
-var new_tab = new Array(4);
-
-var index = 0;
-while (index < 3) {
-    new_tab[index] = tab[index];
-    index++;
-}
-
-for (var index = 0; index < 3; index++) {
-    new_tab[index] = tab[index];
-}
-
-return (new_tab);
 }
