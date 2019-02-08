@@ -238,12 +238,12 @@ function set_dominos() {
     this.took="0";
     this.pose="0";
     this.deg="0";
-    this.tab_side0 = [1,2,3,4,5,6]; // tab that contain only free side
-    this.tab_side90 = [1,2,3,4,5,6]; //
     this.free="0"; // free = 0 right ok ; -----  free = 1 top ok; ----  free = 2 left ok; ---- free = 3 bot ok;
-    this.fside= -1; // nb of free side that i can place domino;
+    this.fside= []; // nb of free side that i can place domino;
     this.possible = 0;
     this.get_last_place;
+    this.horizontal = true;
+    this.offset = [[],[],[],[],[],[]]; //[[O,50,0,-50],[],[],[],[],[],[]];
 }
 
 function asign_dominos() {
@@ -558,10 +558,9 @@ function call_call(e) {
         first_pose(e);
         stock = tempo;
     }
+    check_all(e);
+    /*
     else if (domino[stock].deg == 0 || domino[stock].deg == 180) {
-            //domino[stock].tab_side0;
-            console.log(domino[stock]);
-            console.log(domino[tempo]);
             if (call_check_nr(e) == -1) {
                 return -1;
             }
@@ -571,7 +570,7 @@ function call_call(e) {
                 return -1;        
             }
         }
-    
+    */
     return 0;
 }
 console.log(domino);
@@ -588,8 +587,7 @@ function call_check_r(e) {
    stock = tempo;
 } 
 function call_check_nr(e) {
-    if (first_pose(e) != 0);
-    else if (check_left(e) != 0);
+    if (check_left(e) != 0);
     else if (check_right(e) != 0);
     else if (check_tleft(e) != 0);
     else if (check_bleft(e) != 0);
@@ -705,12 +703,8 @@ function check_right(e) {
                 set_pos(-20, 75, 55, 0); // 20 55 55 0
                 rotate_dom(domino[stock].side2, domino[tempo].side2, domino[tempo].side1, 90, 270);
                 domino[tempo].free = "double";
-                domino[tempo].tab_side90 = [1,2,3,4,-1,-1];
-                domino[tempo].tab_side0 = [1,2,3,4,-1,-1];
                 return (1);
             }
-            domino[tempo].tab_side0 = [,,,4,5,6];
-            domino[stock].tab_side0 = [,,,,,];
             set_pos(0, 75, 75, 0);
             rotate_dom(domino[stock].side2, domino[tempo].side2, domino[tempo].side1, 0, 180);
             domino[tempo].fside = 2;
@@ -957,4 +951,37 @@ function check_rbot(e) {
             return (1);
         }
     return (0);
+}
+// x x+ , y y+ value, client has to be between the value : 0> client.X <1
+var array_of_functions = [check_left, check_right, check_tleft, check_tright, 
+    check_bleft, check_bright, check_top, check_bot, check_ltop, check_lbot, 
+    check_rtop, check_rbot];
+
+
+function give_offset(pos_x, pos_y) {
+    nbx = 0;
+    nby = 0;
+    reset = 0;
+    for (var j = 0; j != 12; j++) {
+        for (var i = 0; i != 4; i++) {
+            if (i < 2) {
+                domino[tempo].offset[j][i] = nbx + pos_x;
+                nbx += 37;
+            }
+            if (i > 2) {
+                domino[tempo].offset[j][i] = nby + pos_y;
+            }
+        }
+    }
+    console.log();
+}
+
+function checkcheck(e) {
+    console.log("yes yes",give_offset());
+    for (var i = 0; i < domino[stock].offset[i].length - 1; i++) {
+        if (e.clientX > domino[stock].offset[i][0] && e.clientX < domino[stock].offset[i][1] &&
+            e.clientY > domino[stock].offset[i][2] && e.clientY < domino[stock].offset[i][3]) {
+                array_of_functions[i]();
+            }
+    }
 }
